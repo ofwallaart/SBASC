@@ -1,0 +1,8 @@
+device: cuda
+epochs: 15
+defaults:
+  - _self_
+  - domain: restaurant3
+  - model: SBASC
+  - environment: local
+  - optional domain_model: ${domain}_${model}

@@ -1,0 +1,32 @@
+name: restaurant-3
+bert_mapper: activebus/BERT-DK_rest
+sbert_mapper: all-mpnet-base-v2
+path_mapper: ./data/${domain.name}
+
+aspect_category_mapper: ['food', 'place', 'service']
+aspect_seed_mapper:
+        food: ["food", "spicy", "sushi", "pizza", "taste", "delicious", "bland", "drinks", "flavourful"]
+        place: ["ambience", "atmosphere", "seating", "surroundings", "environment", "location", "decoration", "spacious", "comfortable", "place"]
+        service: ["tips", "manager", "waitress", "rude", "forgetful", "host", "server", "service", "quick", "staff"]
+
+sentiment_category_mapper: ['negative', 'positive']
+sentiment_seed_mapper:
+        positive: ["good", "great", 'nice', "excellent", "perfect"]
+        negative: ["bad", "terrible", "horrible", "disappointed ", "awful"]
+
+
+validation_data_size: 150
+hyper_validation_size: 0.8
+
+cat_threshold: 0.7
+pol_threshold: 0.4
+
+N: 5
+
+params:
+        learning_rate: 1e-5
+        beta1: 0.9
+        beta2: 0.999
+        batch_size: 24
+        gamma1: 3
+        gamma2: 3

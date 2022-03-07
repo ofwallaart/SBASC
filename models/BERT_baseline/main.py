@@ -1,11 +1,11 @@
 import math
 import time
 from abc import ABC
+from hydra import compose, initialize
 
 from sklearn.metrics import classification_report
-from transformers import AutoTokenizer, BertForSequenceClassification, get_linear_schedule_with_warmup
-from models.BERT_baseline.config import *
-from tqdm import tqdm, trange
+from transformers import AutoTokenizer, get_linear_schedule_with_warmup
+from tqdm import tqdm
 import torch
 from torch.utils.data import DataLoader, TensorDataset
 from torch import optim
@@ -23,7 +23,7 @@ class BertClassifier(nn.Module, ABC):
     """Bert Model for Classification Tasks.
     """
 
-    def __init__(self, freeze_bert=True, D_out=2):
+    def __init__(self, device, freeze_bert=True, D_out=2):
         """
         @param    bert: a BertModel object
         @param    classifier: a torch.nn.Module classifier
@@ -41,7 +41,7 @@ class BertClassifier(nn.Module, ABC):
             nn.Linear(D_in, H),
             nn.ReLU(),
             # nn.Dropout(0.5),
-            nn.Linear(H, D_out).to(config['device'])
+            nn.Linear(H, D_out).to(device)
         )
 
         # Freeze the BERT model
@@ -72,18 +72,19 @@ class BertClassifier(nn.Module, ABC):
 
 
 class BertBaseline:
-    def __init__(self):
-        self.domain = config['domain']
-        self.root_path = path_mapper[self.domain]
+    def __init__(self, cfg):
+        self.cfg = cfg
+        self.domain = cfg.domain
+        self.root_path = cfg.domain.path_mapper
         self.bert_type = 'bert-base-uncased'
-        self.categories = aspect_category_mapper[self.domain]
-        self.polarities = sentiment_category_mapper[self.domain]
-        self.device = config['device']
+        self.categories = cfg.domain.aspect_category_mapper
+        self.polarities = cfg.domain.sentiment_category_mapper
+        self.device = cfg.device
         self.tokenizer = AutoTokenizer.from_pretrained(self.bert_type)
         self.model = None
         self.optimizer = None
         self.scheduler = None
-        self.batch_size = batch_size
+        self.batch_size = cfg.domain.params.batch_size
         self.name = 'BertBaseline'
 
     def find_sentences(self, categories, seeds):
@@ -119,8 +120,8 @@ class BertBaseline:
         return dataset
 
     def load_training_data(self):
-        aspect_seeds = aspect_seed_mapper[self.domain]
-        sentiment_seeds = sentiment_seed_mapper[self.domain]
+        aspect_seeds = self.cfg.domain.aspect_seed_mapper
+        sentiment_seeds = self.cfg.domain.sentiment_seed_mapper
 
         cat_dataset = self.find_sentences(self.categories, aspect_seeds)
         pol_dataset = self.find_sentences(self.polarities, sentiment_seeds)
@@ -135,7 +136,7 @@ class BertBaseline:
             out_len = len(self.categories)
 
         # Instantiate Bert Classifier and Tell PyTorch to run the model on GPU
-        self.model = BertClassifier(freeze_bert=False, D_out=out_len).to(self.device)
+        self.model = BertClassifier(self.device, freeze_bert=False, D_out=out_len).to(self.device)
 
         # Create the optimizer
         self.optimizer = optim.Adam(self.model.parameters(),
@@ -158,11 +159,14 @@ class BertBaseline:
         torch.manual_seed(value)
         torch.cuda.manual_seed_all(value)
 
-    def train_model(self, dataset, params=None, epochs=epochs, cats='categories', hyper=False):
+    def train_model(self, dataset, params=None, epochs=None, cats='categories', hyper=False):
         """Train the BertClassifier model.
             """
         self.set_seed(0)
         device = self.device
+
+        if epochs is None:
+            epochs = self.cfg.epochs
 
         if params:
             learning_rate, beta1, beta2, batch_size = params
@@ -170,12 +174,12 @@ class BertBaseline:
 
         # Prepare dataset
         if hyper:
-            data_size = math.floor(len(dataset) * hyper_validation_data_size)
+            data_size = math.floor(len(dataset) * self.cfg.hyper_validation_size)
             train_data, val_data = torch.utils.data.random_split(
                 dataset, [data_size, len(dataset) - data_size])
         else:
             train_data, val_data = torch.utils.data.random_split(
-                dataset, [len(dataset) - validation_data_size, validation_data_size])
+                dataset, [len(dataset) - self.cfg.validation_data_size, self.cfg.validation_data_size])
 
         dataloader = DataLoader(train_data, batch_size=self.batch_size)
         val_dataloader = DataLoader(val_data, batch_size=self.batch_size)

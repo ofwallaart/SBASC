@@ -1,9 +1,10 @@
 torch==1.6.0
-transformers==4.2.2
-tqdm==4.56.0
-numpy==1.19.1
+transformers~=4.16.2
+tqdm~=4.56.0
+numpy~=1.21.5
 spacy==2.3.5
-pandas==1.1.5
-scikit-learn
-hyperopt
+pandas~=1.1.5
+scikit-learn~=1.0.2
+hyperopt~=0.2.5
 hydra-core
+pymongo~=4.0.1

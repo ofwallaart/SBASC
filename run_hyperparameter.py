@@ -10,7 +10,6 @@ from hydra import compose, initialize
 from models.BERT_baseline.main import BertBaseline
 from models.SBASC.main import SBASC
 from models.WBASC.main import WBASC
-from models.SBASC.config import config
 
 modelSpace = {
     'SBASC': [
@@ -55,7 +54,7 @@ def objective(params, model):
     return result
 
 
-def save_json_result(file_name, model_name, result):
+def save_json_result(file_name, model_name, result, result_path):
     """
     Method obtained from Trusca et al. (2020). Save json to a directory and a filename.
     :param file_name:
@@ -64,9 +63,9 @@ def save_json_result(file_name, model_name, result):
     :return:
     """
     result_name = f'{file_name}.json'
-    if not os.path.exists(f"{config['base_path']}results/{config['domain']}/{model_name}/"):
-        os.makedirs(f"{config['base_path']}results/{config['domain']}/{model_name}")
-    with open(os.path.join(f"{config['base_path']}results/{config['domain']}/{model_name}/", result_name), 'w') as f:
+    if not os.path.exists(f"{result_path}/{model_name}/"):
+        os.makedirs(f"{result_path}/{model_name}")
+    with open(os.path.join(f"{result_path}/{model_name}/", result_name), 'w') as f:
         json.dump(
             result, f,
             default=json_util.default, sort_keys=True,
@@ -75,14 +74,14 @@ def save_json_result(file_name, model_name, result):
 
 
 
-def run_trials(models, max_evals = 30):
+def run_trials(models, cfg, max_evals = 30):
     for model in models:
         print(f"Run a trial for: {model.name}")
 
         print("Attempt to resume a past training if it exists:")
         try:
             # https://github.com/hyperopt/hyperopt/issues/267
-            trials = pickle.load(open(f"{config['base_path']}results/{config['domain']}/{model.name}/results.pkl", "rb"))
+            trials = pickle.load(open(f"{cfg.base_path}results/{cfg.domain.name}/{model.name}/results.pkl", "rb"))
             print("Found saved Trials! Loading...")
             max_evals = len(trials.trials) + max_evals
             print(f"Rerunning from {trials.trials} trials to add another {max_evals}.")
@@ -97,9 +96,9 @@ def run_trials(models, max_evals = 30):
                     max_evals=max_evals,
                     trials=trials)
 
-        if not os.path.exists(f"{config['base_path']}results/{config['domain']}/{model.name}/"):
-            os.makedirs(f"{config['base_path']}results/{config['domain']}/{model.name}")
-        pickle.dump(trials, open(f"{config['base_path']}results/{config['domain']}/{model.name}/results.pkl", "wb"))
+        if not os.path.exists(f"{cfg.result_path_mapper}/{model.name}/"):
+            os.makedirs(f"{cfg.result_path_mapper}/{model.name}")
+        pickle.dump(trials, open(f"{cfg.result_path_mapper}/{model.name}/results.pkl", "wb"))
 
         print("\nOPTIMIZATION STEP COMPLETE.\n")
         print(best)
@@ -109,4 +108,4 @@ if __name__ == '__main__':
     with initialize(config_path="conf"):
         cfg = compose("config.yaml", overrides=['domain=restaurant3', 'model=SBASC'])
         models = [SBASC(cfg)]
-        run_trials(models, 30)
+        run_trials(models, cfg, 30)

@@ -1,7 +1,6 @@
 name: restaurant-3
 bert_mapper: activebus/BERT-DK_rest
 sbert_mapper: all-mpnet-base-v2
-path_mapper: ./data/${domain.name}
 
 aspect_category_mapper: ['food', 'place', 'service']
 aspect_seed_mapper:

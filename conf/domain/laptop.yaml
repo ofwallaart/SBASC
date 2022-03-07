@@ -1,7 +1,6 @@
 name: laptop
 bert_mapper: activebus/BERT-DK_laptop
 sbert_mapper: all-mpnet-base-v2
-path_mapper: ./data/$[domain.name]
 
 aspect_category_mapper: ['support', 'os', 'display', 'battery', 'company', 'mouse', 'software', 'keyboard']
 aspect_seed_mapper:

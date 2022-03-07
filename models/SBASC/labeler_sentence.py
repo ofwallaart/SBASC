@@ -35,8 +35,8 @@ class Labeler:
     def __init__(self):
         self.domain = config['domain']
         self.model = SentenceTransformer(sbert_mapper[self.domain], device=config['device'])
-        self.cat_threshold = 0.8
-        self.pol_threshold = 0.7
+        self.cat_threshold = 0.7
+        self.pol_threshold = 0.5
         self.root_path = path_mapper[self.domain]
         self.categories = aspect_category_mapper[self.domain]
         self.polarities = sentiment_category_mapper[self.domain]

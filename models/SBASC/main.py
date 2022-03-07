@@ -7,9 +7,9 @@ class SBASC:
     def __init__(self):
         self.name = 'SBASC'
 
-    def __call__(self):
+    def __call__(self, load=True):
         labeler = Labeler()
-        labeler(load=True)
+        labeler(load=load)
 
         trainer = Trainer(learning_rate=learning_rate, beta1=beta1, beta2=beta2, batch_size=batch_size, gamma1=gamma1, gamma2=gamma2)
         dataset = trainer.load_training_data()

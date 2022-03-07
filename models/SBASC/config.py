@@ -1,13 +1,13 @@
 config = {
     'domain': 'restaurant-3',
     'device': 'cuda',
-    'base_path': ''
+    'base_path': '/dbfs/FileStore/kto/'
 }
 bert_mapper = {
     'laptop': 'activebus/BERT-DK_laptop',
     'restaurant-3': 'activebus/BERT-DK_rest',
     'restaurant-5': 'activebus/BERT-DK_rest',
-    'kto': './data/kto/BERT-DK_kto'
+    'kto': '/dbfs/FileStore/kto/kto/BERT-DK_kto'
 }
 
 sbert_mapper = {
@@ -18,10 +18,10 @@ sbert_mapper = {
 }
 
 path_mapper = {
-    'laptop': './data/laptop',
-    'restaurant-3': './data/restaurant-3',
-    'restaurant-5': './data/restaurant-5',
-    'kto': './data/kto'
+    'laptop': '/dbfs/FileStore/kto/laptop',
+    'restaurant-3': '/dbfs/FileStore/kto/restaurant-3',
+    'restaurant-5': '/dbfs/FileStore/kto/restaurant-5',
+    'kto': '/dbfs/FileStore/kto/kto'
 }
 aspect_category_mapper = {
     'laptop': ['support', 'os', 'display', 'battery', 'company', 'mouse', 'software', 'keyboard'],
@@ -224,9 +224,9 @@ sentiment_seed_sentence_mapper = {
 batch_size = 24
 validation_data_size = 150
 hyper_validation_data_size = 0.8
-learning_rate = 1e-5
-epochs = 3
-beta1 = 0.9
+learning_rate = 0.005
+epochs = 15
+beta1 = 0.97
 beta2 = 0.999
-gamma1 = 3
-gamma2 = 3
+gamma1 = 0
+gamma2 = 0.5

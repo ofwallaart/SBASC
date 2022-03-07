@@ -5,6 +5,7 @@ import json
 from bson import json_util
 from functools import partial
 from hyperopt import hp, fmin, tpe, STATUS_OK, Trials
+from hydra import compose, initialize
 
 from models.BERT_baseline.main import BertBaseline
 from models.SBASC.main import SBASC
@@ -105,5 +106,7 @@ def run_trials(models, max_evals = 30):
 
 
 if __name__ == '__main__':
-    models = [SBASC()]
-    run_trials(models, 30)
+    with initialize(config_path="conf"):
+        cfg = compose("config.yaml", overrides=['domain=restaurant3', 'model=SBASC'])
+        models = [SBASC(cfg)]
+        run_trials(models, 30)

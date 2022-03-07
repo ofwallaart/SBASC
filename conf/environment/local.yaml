@@ -1,0 +1,5 @@
+# @package _global_
+base_path: ''
+domain:
+  params:
+    batch_size: 12

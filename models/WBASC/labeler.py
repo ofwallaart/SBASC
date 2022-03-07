@@ -31,7 +31,7 @@ def load_evaluate_data(path):
     return test_sentences, test_cats, test_pols
 
 
-def get_rep_sentences(self, embeddings, cosine_scores_train, aspect_seed, aspect_category, embeddings_marco,
+def get_rep_sentences(self, embeddings, cosine_scores_train, aspect_seed, aspect_category, embeddings_marco, N,
                       test_embeddings=None):
     train_sentences = self.sentences
     topk_scores = []
@@ -116,22 +116,25 @@ def get_rep_sentences(self, embeddings, cosine_scores_train, aspect_seed, aspect
 
 
 class Labeler:
-    def __init__(self):
-        self.domain = config['domain']
-        self.model = SentenceTransformer(sbert_mapper[self.domain], device=config['device'])
+    def __init__(self, cfg):
+        self.domain = cfg.domain.name
+        self.model = SentenceTransformer(cfg.domain.sbert_mapper, device=cfg.device)
         self.marco_model = SentenceTransformer('msmarco-distilbert-base-v4', device=config['device'])
-        self.cat_threshold = 0.7
-        self.pol_threshold = 0.4
-        self.root_path = path_mapper[self.domain]
-        self.categories = aspect_category_mapper[self.domain]
-        self.polarities = sentiment_category_mapper[self.domain]
+        self.cat_threshold = cfg.domain.cat_threshold
+        self.pol_threshold = cfg.domain.pol_threshold
+        self.root_path = cfg.domain.path_mapper
+        self.categories = cfg.domain.aspect_category_mapper
+        self.polarities = cfg.domain.sentiment_category_mapper
+        self.category_sentences = cfg.domain.aspect_seed_mapper
+        self.sentiment_sentences = cfg.domain.sentiment_seed_mapper
+        self.N = cfg.model.N
         self.labels = None
         self.sentences = None
 
     def __call__(self, use_two_step=True, evaluate=True, load=False):
 
-        category_seeds = aspect_seed_mapper[self.domain]
-        polarity_seeds = sentiment_seed_mapper[self.domain]
+        category_seeds = self.category_sentences
+        polarity_seeds = self.sentiment_sentences
 
         split = [len(self.categories), len(self.polarities)]
 
@@ -168,9 +171,9 @@ class Labeler:
         if use_two_step:
             # Get top most representable sentences for each aspect
             cosine_category_scores = get_rep_sentences(self, embeddings, cosine_category_scores,
-                                                       category_seeds, self.categories, embeddings_marco)
+                                                       category_seeds, self.categories, embeddings_marco, self.N)
             cosine_polarity_scores = get_rep_sentences(self, embeddings, cosine_polarity_scores,
-                                                       polarity_seeds, self.polarities, embeddings_marco)
+                                                       polarity_seeds, self.polarities, embeddings_marco, self.N)
 
         category_argmax = torch.argmax(cosine_category_scores, dim=0).tolist()
         category_max = torch.max(cosine_category_scores, dim=0)[0].tolist()
@@ -210,10 +213,10 @@ class Labeler:
             if use_two_step:
                 cosine_category_test_scores = get_rep_sentences(self, embeddings, cosine_category_scores,
                                                                 category_seeds, self.categories, embeddings_marco,
-                                                                test_embeddings)
+                                                                test_embeddings, self.N)
                 cosine_polarity_test_scores = get_rep_sentences(self, embeddings, cosine_polarity_scores,
                                                                 polarity_seeds, self.polarities, embeddings_marco,
-                                                                test_embeddings)
+                                                                test_embeddings, self.N)
             else:
                 cosine_category_test_scores, cosine_polarity_test_scores = torch.split(
                     util.cos_sim(seed_embeddings, test_embeddings), split)

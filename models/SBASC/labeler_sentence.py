@@ -1,7 +1,6 @@
 import torch
 import numpy as np
 from sentence_transformers import SentenceTransformer, util
-from models.SBASC.config import *
 import re
 from sklearn.metrics import classification_report
 
@@ -32,20 +31,22 @@ def load_evaluate_data(path):
 
 
 class Labeler:
-    def __init__(self):
-        self.domain = config['domain']
-        self.model = SentenceTransformer(sbert_mapper[self.domain], device=config['device'])
-        self.cat_threshold = 0.7
-        self.pol_threshold = 0.5
-        self.root_path = path_mapper[self.domain]
-        self.categories = aspect_category_mapper[self.domain]
-        self.polarities = sentiment_category_mapper[self.domain]
+    def __init__(self, cfg):
+        self.domain = cfg.domain.name
+        self.model = SentenceTransformer(cfg.domain.sbert_mapper, device=cfg.device)
+        self.cat_threshold = cfg.domain.cat_threshold
+        self.pol_threshold = cfg.domain.pol_threshold
+        self.root_path = cfg.domain.path_mapper
+        self.categories = cfg.domain.aspect_category_mapper
+        self.polarities = cfg.domain.sentiment_category_mapper
+        self.category_sentences = cfg.domain.aspect_seed_mapper
+        self.sentiment_sentences = cfg.domain.sentiment_seed_mapper
         self.labels = None
         self.sentences = None
 
     def __call__(self, evaluate=True, load=False):
-        category_seeds = aspect_seed_sentence_mapper[self.domain]
-        polarity_seeds = sentiment_seed_sentence_mapper[self.domain]
+        category_seeds = self.category_sentences
+        polarity_seeds = self.sentiment_sentences
 
         split = [len(self.categories), len(self.polarities)]
 
@@ -84,7 +85,8 @@ class Labeler:
         polarity_max, polarity_argmax = cosine_polarity_scores.max(dim=-1)
 
         labels = np.array(
-            [category_argmax.tolist(), category_max.tolist(), polarity_argmax.tolist(), polarity_max.tolist(), np.arange(0, len(self.sentences))])
+            [category_argmax.tolist(), category_max.tolist(), polarity_argmax.tolist(), polarity_max.tolist(),
+             np.arange(0, len(self.sentences))])
 
         self.labels = labels
 
@@ -129,21 +131,23 @@ class Labeler:
             for seed_embedding in seed_embeddings:
                 # Compute cosine-similarities
                 total_tensor = torch.cat((seed_embedding, torch.mean(seed_embedding, dim=0).unsqueeze(0)))
-                cosine_test_scores.append(torch.max(util.cos_sim(total_tensor, test_embeddings), dim=0)[0].unsqueeze(dim=-1))
+                cosine_test_scores.append(
+                    torch.max(util.cos_sim(total_tensor, test_embeddings), dim=0)[0].unsqueeze(dim=-1))
 
-            cosine_category_test_scores, cosine_polarity_test_scores = torch.split(torch.cat(cosine_test_scores, 1), split, -1)
+            cosine_category_test_scores, cosine_polarity_test_scores = torch.split(torch.cat(cosine_test_scores, 1),
+                                                                                   split, -1)
 
             category_test_argmax = cosine_category_test_scores.argmax(dim=-1).tolist()
             polarity_test_argmax = cosine_polarity_test_scores.argmax(dim=-1).tolist()
 
             print("Polarity")
             print(classification_report(
-                test_pols, polarity_test_argmax, target_names=sentiment_category_mapper[self.domain], digits=4
+                test_pols, polarity_test_argmax, target_names=self.polarities, digits=4
             ))
             print()
 
             print("Aspect")
             print(classification_report(
-                test_cats, category_test_argmax, target_names=aspect_category_mapper[self.domain], digits=4
+                test_cats, category_test_argmax, target_names=self.categories, digits=4
             ))
             print()

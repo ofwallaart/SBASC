@@ -1,23 +1,27 @@
+from hydra import compose, initialize
+
 from models.WBASC.labeler import Labeler
 from models.SBASC.trainer import Trainer
 from models.WBASC.config import *
 
 
 class WBASC:
-    def __init__(self):
+    def __init__(self, cfg):
         self.name = 'WBASC'
+        self.cfg = cfg
+        self.params = cfg.domain.params
 
-    def __call__(self):
-        labeler = Labeler()
-        labeler(load=True)
+    def __call__(self, load=True):
+        labeler = Labeler(self.cfg)
+        labeler(load=load)
 
-        trainer = Trainer(learning_rate=learning_rate, beta1=beta1, beta2=beta2, batch_size=batch_size, gamma1=gamma1, gamma2=gamma2)
+        trainer = Trainer(self.cfg, **self.params)
         dataset = trainer.load_training_data()
         trainer.train_model(dataset)
         trainer.evaluate()
 
     def hypertuning(self, params):
-        trainer = Trainer(*params)
+        trainer = Trainer(self.cfg, *params)
         dataset = trainer.load_training_data()
         loss, acc = trainer.train_model(dataset, hyper=True)
 
@@ -25,4 +29,6 @@ class WBASC:
 
 
 if __name__ == '__main__':
-    WBASC()()
+    initialize(config_path="conf")
+    config = compose("config.yaml", overrides=['model=WBASC'])
+    WBASC(config)()

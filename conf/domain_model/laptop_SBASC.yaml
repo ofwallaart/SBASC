@@ -1,0 +1,80 @@
+# @package _global_
+domain:
+  cat_threshold: 0.8
+  pol_threshold: 0.7
+
+  aspect_seed_mapper:
+    support: [
+      "that 'll give you 3 years service and support the alternative to being stuck with a lemon six months after purchase .",
+      "dell 's customer service has been quite unimpressive of late .",
+      "battery expension is not covered by warranty and out of warranty repairs for portables are not cheap",
+      "apple support service is really good",
+      "i sent it in for warranty work and sony wants close to 700 to replace it ."
+    ]
+    os: [
+      "windows 8 is a really poor os .",
+      "this computer runs on windows xp and windows 7 and is fast",
+      "the worst thing is that it is running windows 8",
+      "os x version 10 is a much better operating system than windows .",
+      "the operating system is really intuitive",
+    ]
+    display: [
+      "several of our early testers are complaining about the ultra glossy ( or glassy ) screen and the quality of the display itself .",
+      "the screen is excellent .",
+      "my only concern was the poor led display quality when viewing at an angle colors appear washed out when viewed at an angle",
+      "the screen is clear and the resolution is very nice ."
+    ]
+    battery: [
+      "the battery says that it lasts for 3 1 2 hours when its fully charged , but it does n't seem to last that long .",
+      "battery life it 's a joke compared to today 's 'light and thin' ones",
+      "it does not hold a charge for too long but that is not an issue for me",
+      "the standard battery in normal usage last me an hour to an hour and a half .",
+      "the laptop loses power much more quickly than i would like ."
+    ]
+    company: [
+      "you should buy apple products its a great business",
+      "changed my mind about this company to a very positive experience .",
+      "I really like hp .",
+      "I hate apple as a company .",
+      "I will never buy from lenovo again"
+    ]
+    mouse: [
+      "i did order a wireless mouse",
+      "the touch pad is also a bit difficult to get used to .",
+      "decent good track pad with gestures built in",
+      "mouse is nice touch pad texture is not my favourite prefer a simple matte feel but is still good "
+    ]
+    software: [
+      "it 's neat that this came with a lot software already installed",
+      "i really like all the apps in the mac app store ",
+      "the software sometimes crashes",
+      "i mostly use this to download music from itunes or amazon .",
+      "i dont like all the junkware that comes installed .",
+      "itunes is a really good program",
+      "the extensive app store that google provides is great ."
+    ]
+    keyboard: [
+      "i love the keyboard that light up at night or when it hard for you to see the keys .",
+      "some key like backspace and enter are small .",
+      " which i ca n't work with i 'm a touch typist , and the space bar does n't work often when i hit it with my thumb as i 'm typing .",
+      "the keyboard has a good click without being stiff to type .",
+      "keys work well"
+    ]
+
+
+  sentiment_seed_mapper:
+    positive: [
+      "this is a very good laptop .",
+      "what sets it out as the perfect family laptop the touch screen is also just great for kids who are exposed to tablets and other touch screen devices .",
+      'the touchpad is made of a nice frictionless material and it is nice and roomy .',
+      "battery life is also excellent .",
+      "i 've had three different hp laptops over the years , and honestly , i 've never been disappointed with them ."
+    ]
+    negative: [
+      "perhaps i got a bad battery , but i think its probably just a weak design .",
+      "the closest i got to a mac was in school and i thought they were terrible .",
+      "absolutely horrible display",
+      "i am shocked and disappointed that this company does such a poor job of support . ",
+      "the track pad is nothing short of awful and the mouse buttons are too stiff ."
+    ]
+

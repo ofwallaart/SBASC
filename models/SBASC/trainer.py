@@ -1,8 +1,7 @@
-from transformers import AutoTokenizer, BertForMaskedLM
-from models.SBASC.config import *
+from transformers import AutoTokenizer
 from models.SBASC.model import BERTLinear
 import torch
-from tqdm import tqdm, trange
+from tqdm import tqdm
 from torch.utils.data import DataLoader, TensorDataset
 from torch import optim
 import random
@@ -14,17 +13,20 @@ import math
 
 
 class Trainer:
-    def __init__(self, learning_rate, beta1, beta2, batch_size, gamma1, gamma2):
-        print(learning_rate, beta1, beta2, batch_size, gamma1, gamma2)
-        self.domain = config['domain']
-        self.bert_type = bert_mapper[self.domain]
-        self.device = config['device']
+    def __init__(self, cfg, learning_rate, beta1, beta2, batch_size, gamma1, gamma2):
+        print(cfg)
+        self.domain = cfg.domain.name
+        self.bert_type = cfg.domain.bert_mapper
+        self.device = cfg.device
         self.tokenizer = AutoTokenizer.from_pretrained(self.bert_type)
-        self.root_path = path_mapper[self.domain]
+        self.root_path = cfg.domain.path_mapper
         self.batch_size = batch_size
+        self.epochs = cfg.epochs
+        self.validation_data_size = cfg.domain.validation_data_size
+        self.hyper_validation_size = cfg.domain.hyper_validation_size
 
-        categories = aspect_category_mapper[self.domain]
-        polarities = sentiment_category_mapper[self.domain]
+        categories = cfg.domain.aspect_category_mapper
+        polarities = cfg.domain.sentiment_category_mapper
 
         self.model = BERTLinear(self.bert_type, len(
             categories), len(polarities), gamma1, gamma2).to(self.device)
@@ -79,19 +81,22 @@ class Trainer:
         torch.manual_seed(value)
         torch.cuda.manual_seed_all(value)
 
-    def train_model(self, dataset, epochs=epochs, hyper=False):
+    def train_model(self, dataset, epochs=None, hyper=False):
         """Train the model.
             """
         self.set_seed(0)
 
+        if epochs is None:
+            epochs = self.epochs
+
         # Prepare dataset
         if hyper:
-            data_size = math.floor(len(dataset) * hyper_validation_data_size)
+            data_size = math.floor(len(dataset) * self.hyper_validation_size)
             train_data, val_data = torch.utils.data.random_split(
                 dataset, [data_size, len(dataset) - data_size])
         else:
             train_data, val_data = torch.utils.data.random_split(
-                dataset, [len(dataset) - validation_data_size, validation_data_size])
+                dataset, [len(dataset) - self.validation_data_size, self.validation_data_size])
         dataloader = DataLoader(train_data, batch_size=self.batch_size)
         val_dataloader = DataLoader(val_data, batch_size=self.batch_size)
 

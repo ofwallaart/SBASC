@@ -13,7 +13,7 @@ from models.SBASC.config import config
 
 modelSpace = {
     'SBASC': [
-        hp.choice('learning_rate', [0.00001, 0.0001, 0.001, 0.005, 0.01, 0.02, 0.05, 0.1]),
+        hp.choice('learning_rate', [1e-6, 1e-5, 1e-4, 5e-3, 1e-3, 5e-2, 1e-2, 0.02, 0.05, 0.1]),
         hp.choice('beta1', [0.8, 0.9, 0.95, 0.97, 0.99]),
         hp.choice('beta2', [0.92, 0.95, 0.97, 0.99, 0.999]),
         hp.choice('batch_size', [12, 24, 36, 48, 60]),
@@ -21,7 +21,7 @@ modelSpace = {
         hp.choice('gamma2', [0, 0.5, 1, 2, 3, 4]),
     ],
     'WBASC': [
-        hp.choice('learning_rate', [0.00001, 0.0001, 0.001, 0.005, 0.01, 0.02, 0.05, 0.1]),
+        hp.choice('learning_rate', [1e-6, 1e-5, 1e-4, 5e-3, 1e-3, 5e-2, 1e-2, 0.02, 0.05, 0.1]),
         hp.choice('beta1', [0.8, 0.9, 0.95, 0.97, 0.99]),
         hp.choice('beta2', [0.92, 0.95, 0.97, 0.99, 0.999]),
         hp.choice('batch_size', [12]), #24, 36, 48, 60
@@ -29,7 +29,7 @@ modelSpace = {
         hp.choice('gamma2', [0, 0.5, 1, 2, 3, 4]),
     ],
     'BertBaseline': [
-        hp.choice('learning_rate', [0.00001, 0.0001, 0.001, 0.005, 0.01, 0.02, 0.05, 0.1]),
+        hp.choice('learning_rate', [1e-6, 1e-5, 1e-4, 5e-3, 1e-3, 5e-2, 1e-2, 0.02, 0.05, 0.1]),
         hp.choice('beta1', [0.8, 0.9, 0.95, 0.97, 0.99, 0.99]),
         hp.choice('beta2', [0.92, 0.95, 0.97, 0.99, 0.999]),
         hp.choice('batch_size', [12, 24, 36, 48, 60]),

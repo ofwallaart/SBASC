@@ -100,6 +100,8 @@ class Trainer:
 
         optimizer = self.optimizer
 
+        best_loss = 0
+
         # Start training loop
         print("Start training...\n")
         for epoch_i in range(epochs):
@@ -186,6 +188,9 @@ class Trainer:
             val_loss = np.mean(val_loss)
             val_accuracy = np.mean(val_accuracy)
 
+            if val_loss > best_loss:
+                torch.save(self.model, f'{self.root_path}/model.pth')
+
             # Display the epoch training loss and validation loss
             print(
                 f"{epoch_i + 1:^7} | {'-':^7} | {avg_train_loss:^12.6f} | {val_loss:^10.6f} | {val_accuracy:^9.2f} | {time_elapsed:^9.2f}")
@@ -194,7 +199,8 @@ class Trainer:
         return val_loss, val_accuracy
 
     def save_model(self, name):
-        torch.save(self.model, f'{self.root_path}/{name}.pth')
+        model = torch.load(f'{self.root_path}/model.pth')
+        torch.save(model, f'{self.root_path}/{name}.pth')
 
     def load_model(self, name):
         self.model = torch.load(f'{self.root_path}/{name}.pth')
@@ -216,7 +222,7 @@ class Trainer:
         df = pd.DataFrame(columns=(
             ['sentence', 'actual category', 'predicted category', 'actual polarity', 'predicted polarity']))
 
-        model = self.model
+        model = torch.load(f'{self.root_path}/model.pth')
         model.eval()
         device = self.device
 

@@ -9,4 +9,3 @@ if __name__ == "__main__":
 
         # Run SBASC
         SBASC(cfg)(load=True)
-        print(cfg)

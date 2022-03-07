@@ -75,7 +75,7 @@ class BertBaseline:
     def __init__(self, cfg):
         self.cfg = cfg
         self.domain = cfg.domain
-        self.root_path = cfg.domain.path_mapper
+        self.root_path = cfg.path_mapper
         self.bert_type = 'bert-base-uncased'
         self.categories = cfg.domain.aspect_category_mapper
         self.polarities = cfg.domain.sentiment_category_mapper

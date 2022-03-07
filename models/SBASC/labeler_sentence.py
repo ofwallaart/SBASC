@@ -36,7 +36,7 @@ class Labeler:
         self.model = SentenceTransformer(cfg.domain.sbert_mapper, device=cfg.device)
         self.cat_threshold = cfg.domain.cat_threshold
         self.pol_threshold = cfg.domain.pol_threshold
-        self.root_path = cfg.domain.path_mapper
+        self.root_path = cfg.path_mapper
         self.categories = cfg.domain.aspect_category_mapper
         self.polarities = cfg.domain.sentiment_category_mapper
         self.category_sentences = cfg.domain.aspect_seed_mapper

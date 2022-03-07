@@ -14,12 +14,11 @@ import math
 
 class Trainer:
     def __init__(self, cfg, learning_rate, beta1, beta2, batch_size, gamma1, gamma2):
-        print(cfg)
         self.domain = cfg.domain.name
         self.bert_type = cfg.domain.bert_mapper
         self.device = cfg.device
         self.tokenizer = AutoTokenizer.from_pretrained(self.bert_type)
-        self.root_path = cfg.domain.path_mapper
+        self.root_path = cfg.path_mapper
         self.batch_size = batch_size
         self.epochs = cfg.epochs
         self.validation_data_size = cfg.domain.validation_data_size

@@ -18,6 +18,10 @@ class SBASC:
         dataset = trainer.load_training_data()
         trainer.train_model(dataset)
         trainer.evaluate()
+        
+    def labeler(self, load=True):
+        labeler = Labeler(self.cfg)
+        labeler(load=load)
 
     def hypertuning(self, params):
         trainer = Trainer(self.cfg, *params)

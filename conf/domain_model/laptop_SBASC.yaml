@@ -1,7 +1,7 @@
 # @package _global_
 domain:
-  cat_threshold: 0.8
-  pol_threshold: 0.7
+  cat_threshold: 0.7
+  pol_threshold: 0.45
 
   aspect_seed_mapper:
     support: [
@@ -78,3 +78,10 @@ domain:
       "the track pad is nothing short of awful and the mouse buttons are too stiff ."
     ]
 
+  params:
+    batch_size: 12
+    beta1: 0.99
+    beta2: 0.92
+    gamma1: 1
+    gamma2: 4
+    learning_rate: 1e-6

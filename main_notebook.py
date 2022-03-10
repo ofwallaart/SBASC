@@ -11,13 +11,13 @@ from run_hyperparameter import run_trials
 
 # DBTITLE 1,Do a single run for creating labels
 with initialize(config_path="conf"):
-  cfg = compose("config.yaml", overrides=['domain=restaurant5', 'model=SBASC', 'environment=databricks'])
+  cfg = compose("config.yaml", overrides=['domain=laptop', 'model=SBASC', 'environment=databricks'])
   SBASC(cfg)(load=True)
 
 # COMMAND ----------
 
 with initialize(config_path="conf"):
-    cfg = compose("config.yaml", overrides=['domain=restaurant5', 'model=SBASC', 'environment=databricks'])
+    cfg = compose("config.yaml", overrides=['domain=laptop', 'model=SBASC', 'environment=databricks'])
     models = [SBASC(cfg)]
     run_trials(models, cfg, 60)
 
@@ -25,7 +25,7 @@ with initialize(config_path="conf"):
 
 import pickle
 
-trials = pickle.load(open("/dbfs/FileStore/kto/results/restaurant-5/SBASC/results.pkl", "rb"))
+trials = pickle.load(open("/dbfs/FileStore/kto/results/laptop/SBASC/results.pkl", "rb"))
 best = trials.best_trial['result']
 print(best)
 for trial in trials.trials:

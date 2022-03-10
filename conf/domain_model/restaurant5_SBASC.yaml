@@ -1,12 +1,11 @@
 # @package _global_
 domain:
-  cat_threshold: 0.7
-  pol_threshold: 0.6
+  cat_threshold: 0.65
+  pol_threshold: 0.55
 
   aspect_seed_mapper:
     location: [
-      "convenient location to my apartment .",
-      "the views and surroundings were spectacular . ",
+      "convenient location to my apartment . the views and surroundings were spectacular . ",
       "we had a tremendous view of the river .",
       "located at the end of a magnificent block .",
       "the outdoor atmosphere of sitting on the sidewalk watching the world go by 50 feet away on 6th avenue on a cool evening was wonderful ."
@@ -71,9 +70,9 @@ domain:
 
 
   params:
-    batch_size: 12
+    batch_size: 36
     beta1: 0.99
-    beta2: 0.97
-    gamma1: 4
+    beta2: 0.999
+    gamma1: 2
     gamma2: 4
     learning_rate: 1e-6

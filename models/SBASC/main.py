@@ -14,7 +14,7 @@ class SBASC:
         labeler = Labeler(self.cfg)
         trainer = Trainer(self.cfg, **self.params)
 
-        if self.cfg.ablation.name == 'WithoutDomainKnowledge':
+        if self.cfg.ablation.name == 'WithoutDeepLearning':
             results = labeler(load=load, evaluate=True)
         else:
             labeler(load=load, evaluate=evaluate)

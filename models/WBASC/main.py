@@ -11,14 +11,19 @@ class WBASC:
         self.cfg = cfg
         self.params = cfg.domain.params
 
-    def __call__(self, load=True):
+    def __call__(self, load=True, evaluate=True):
         labeler = Labeler(self.cfg)
-        labeler(load=load)
-
         trainer = Trainer(self.cfg, **self.params)
-        dataset = trainer.load_training_data()
-        trainer.train_model(dataset)
-        trainer.evaluate()
+
+        if self.cfg.ablation.name == 'WithoutDomainKnowledge':
+            results = labeler(load=load, evaluate=True)
+        else:
+            labeler(load=load, evaluate=evaluate)
+            dataset = trainer.load_training_data()
+            trainer.train_model(dataset)
+            results = trainer.evaluate()
+
+        return results
     
     def labeler(self, load=True):
         labeler = Labeler(self.cfg)

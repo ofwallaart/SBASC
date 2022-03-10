@@ -274,4 +274,4 @@ class Trainer:
         print()
 
         return classification_report(actual_pol, predicted_pol, digits=6, output_dict=True), classification_report(
-            actual, predicted, digits=6, output_dict=True)
+            actual, predicted, digits=6, output_dict=True), df

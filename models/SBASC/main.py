@@ -26,7 +26,7 @@ class SBASC:
 
     def labeler(self, load=True):
         labeler = Labeler(self.cfg)
-        labeler(load=load)
+        return labeler(load=load)
 
     def hypertuning(self, params):
         trainer = Trainer(self.cfg, *params)

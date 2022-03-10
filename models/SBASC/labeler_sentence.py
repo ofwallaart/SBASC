@@ -153,7 +153,7 @@ class Labeler:
             print()
 
             return classification_report(test_pols, polarity_test_argmax, target_names=self.polarities, output_dict=True), classification_report(
-                test_cats, category_test_argmax, target_names=self.categories, digits=6, output_dict=True)
+                test_cats, category_test_argmax, target_names=self.categories, digits=6, output_dict=True), polarity_test_argmax, category_test_argmax
 
     def __bert_embedder(self, load, seeds):
         tokenizer = AutoTokenizer.from_pretrained(self.cfg.domain.bert_mapper)

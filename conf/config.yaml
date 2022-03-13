@@ -5,8 +5,8 @@ defaults:
   - domain: restaurant3
   - model: SBASC
   - environment: local
-  - ablation: none
   - optional domain_model: ${domain}_${model}
+  - ablation: none
 
 path_mapper: ${data_path}${domain.name}
 result_path_mapper: ${result_path}${domain.name}

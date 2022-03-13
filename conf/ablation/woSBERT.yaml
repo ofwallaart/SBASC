@@ -1,1 +1,9 @@
-name: WithoutSBERT
+# @package _global_
+ablation:
+  name: WithoutSBERT
+  
+domain:
+  cat_threshold: 0.85
+  pol_threshold: 0.85
+  
+    

@@ -67,7 +67,7 @@ class Labeler:
         self.sentences = load_training_data(f'{self.root_path}/train.txt')
 
         # Load different embeddings for ablation study
-        if self.cfg.ablation.name == 'WithoutSBERT':
+        if self.cfg.ablation == 'WithoutSBERT':
             seed_embeddings, embeddings = self.__bert_embedder(load, seeds)
         else:
             seed_embeddings, embeddings = self.__sbert_embedder(load, seeds)
@@ -163,7 +163,7 @@ class Labeler:
 
         def embedder(sentence_list):
             sentence_embeddings = []
-            
+
             for i in trange(0, len(sentence_list), batch_size):
                 encoded_dict = tokenizer(
                     sentence_list[i:i+batch_size],

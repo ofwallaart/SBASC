@@ -3,8 +3,11 @@ import numpy as np
 from sentence_transformers import SentenceTransformer, util
 from models.WBASC.config import *
 import re
+import os
+from tqdm import trange
 from sklearn.metrics import classification_report, confusion_matrix
 import pandas as pd
+from transformers import AutoTokenizer, BertModel
 
 def load_training_data(file_path):
     sentences = []
@@ -127,7 +130,8 @@ class Labeler:
         self.polarities = cfg.domain.sentiment_category_mapper
         self.category_sentences = cfg.domain.aspect_seed_mapper
         self.sentiment_sentences = cfg.domain.sentiment_seed_mapper
-        self.N = cfg.model.N
+        self.N = cfg.domain.N
+        self.cfg = cfg
         self.labels = None
         self.sentences = None
 
@@ -145,24 +149,14 @@ class Labeler:
         for pol in self.polarities:
             seeds[pol] = " ".join(polarity_seeds[pol])
 
-        seed_embeddings = self.model.encode(list(seeds.values()), convert_to_tensor=True, show_progress_bar=True)
-        seed_embeddings_marco = self.marco_model.encode(list(seeds.values()), convert_to_tensor=True,
-                                                        show_progress_bar=True)
-
         # Load and encode the train set
         self.sentences = load_training_data(f'{self.root_path}/train.txt')
 
-        if load:
-            print(f'Loading embeddings from {self.root_path}')
-            embeddings = torch.load(f'{self.root_path}/sbert_train_embeddings.pickle')[:20000]
-            embeddings_marco = torch.load(f'{self.root_path}/sbert_train_embeddings_marco.pickle')[:20000]
-            self.sentences = self.sentences[:20000]
+        # Load different embeddings for ablation study
+        if self.cfg.ablation.name == 'WithoutSBERT':
+            seed_embeddings, seed_embeddings_marco, embeddings, embeddings_marco = self.__bert_embedder(load, seeds)
         else:
-            embeddings = self.model.encode(self.sentences, convert_to_tensor=True, show_progress_bar=True)
-            embeddings_marco = self.marco_model.encode(self.sentences, convert_to_tensor=True, show_progress_bar=True)
-            print(f'Saving embeddings to {self.root_path}')
-            torch.save(embeddings, f'{self.root_path}/sbert_train_embeddings.pickle')
-            torch.save(embeddings_marco, f'{self.root_path}/sbert_train_embeddings_marco.pickle')
+            seed_embeddings, seed_embeddings_marco, embeddings, embeddings_marco = self.__sbert_embedder(load, seeds)
 
         # Compute cosine-similarities
         cosine_category_scores, cosine_polarity_scores = torch.split(
@@ -237,7 +231,10 @@ class Labeler:
             print()
             print(confusion_matrix(test_cats, category_test_argmax))
 
-            return pd.DataFrame(data={'sentence': test_sentences, 'test_cats': test_cats, 'pred_cats': category_test_argmax, 'test_pols':test_pols, 'pred_pols':polarity_test_argmax}).sort_values(['pred_cats','test_cats'])
+            # return pd.DataFrame(data={'sentence': test_sentences, 'test_cats': test_cats, 'pred_cats': category_test_argmax, 'test_pols':test_pols, 'pred_pols':polarity_test_argmax}).sort_values(['pred_cats','test_cats'])
+            return classification_report(test_pols, polarity_test_argmax, target_names=self.polarities, digits=4, output_dict=True), \
+                   classification_report(test_cats, category_test_argmax, target_names=self.categories, digits=4, output_dict=True), \
+                   polarity_test_argmax, category_test_argmax
 
     def update_labels(self, cat_threshold, pol_threshold):
         labels = self.labels
@@ -262,6 +259,66 @@ class Labeler:
         # Labeled data statistics
         print('Labeled data statistics:')
         print(cnt)
+
+
+    def __bert_embedder(self, load, seeds):
+        tokenizer = AutoTokenizer.from_pretrained(self.cfg.domain.bert_mapper)
+        model = BertModel.from_pretrained(self.cfg.domain.bert_mapper, output_hidden_states=True).to('cuda')
+
+        batch_size = 24
+
+        def embedder(sentence_list):
+            sentence_embeddings = []
+
+            for i in trange(0, len(sentence_list), batch_size):
+                encoded_dict = tokenizer(
+                    sentence_list[i:i+batch_size],
+                    padding=True,
+                    return_tensors='pt',
+                    max_length=128,
+                    return_attention_mask=True,
+                    truncation=True)
+                model.eval()
+                with torch.no_grad():
+                    outputs = model(encoded_dict['input_ids'].to('cuda'), encoded_dict['token_type_ids'].to('cuda'),
+                                    encoded_dict['attention_mask'].to('cuda'))
+                x = outputs[2][11]
+                mask = encoded_dict['attention_mask'].to('cuda')  # (bsz, seq_len)
+                se = x * mask.unsqueeze(2)
+                den = mask.sum(dim=1).unsqueeze(1)
+                sentence_embeddings.extend(se.sum(dim=1) / den)
+
+            return torch.stack(sentence_embeddings)
+
+        seed_embeddings_bert = embedder(list(seeds.values()))
+
+        if load and os.path.isfile(f'{self.root_path}/bert_avg_train_embeddings.pickle'):
+            print(f'Loading embeddings from {self.root_path}')
+            embeddings_bert = torch.load(f'{self.root_path}/bert_avg_train_embeddings.pickle')
+        else:
+            embeddings_bert = embedder(self.sentences)
+            print(f'Saving embeddings to {self.root_path}')
+            torch.save(embeddings_bert, f'{self.root_path}/bert_avg_train_embeddings.pickle')
+
+        return seed_embeddings_bert, seed_embeddings_bert, embeddings_bert, embeddings_bert
+
+    def __sbert_embedder(self, load, seeds):
+        seed_embeddings = self.model.encode(list(seeds.values()), convert_to_tensor=True, show_progress_bar=True)
+        seed_embeddings_marco = self.marco_model.encode(list(seeds.values()), convert_to_tensor=True,
+                                                        show_progress_bar=True)
+
+        if load and os.path.isfile(f'{self.root_path}/sbert_train_embeddings.pickle'):
+            print(f'Loading embeddings from {self.root_path}')
+            embeddings = torch.load(f'{self.root_path}/sbert_train_embeddings.pickle')
+            embeddings_marco = torch.load(f'{self.root_path}/sbert_train_embeddings_marco.pickle')
+        else:
+            embeddings = self.model.encode(self.sentences, convert_to_tensor=True, show_progress_bar=True)
+            embeddings_marco = self.marco_model.encode(self.sentences, convert_to_tensor=True, show_progress_bar=True)
+            print(f'Saving embeddings to {self.root_path}')
+            torch.save(embeddings, f'{self.root_path}/sbert_train_embeddings.pickle')
+            torch.save(embeddings_marco, f'{self.root_path}/sbert_train_embeddings_marco.pickle')
+
+        return seed_embeddings, seed_embeddings_marco, embeddings, embeddings_marco
 
 
 if __name__ == '__main__':

@@ -1,6 +1,5 @@
 import pandas as pd
 from hydra import compose, initialize
-from omegaconf import DictConfig
 import os
 import json
 import time
@@ -24,9 +23,8 @@ def store_run_results(results, path, model_name, ablation):
     with open(f"{path}/{model_name}/run_{date}_{ablation}.json", "w") as outfile:
         outfile.write(json_object)
 
-          
     df_output_path = f"{path}/{model_name}/results.csv"
-    
+
     d = {
       'timestamp': [date, date],
       'type': ['polarity', 'aspect'],
@@ -36,18 +34,21 @@ def store_run_results(results, path, model_name, ablation):
       'recall': [results[0]['macro avg']['recall'], results[1]['macro avg']['recall']],
       'f1-score': [results[0]['macro avg']['f1-score'], results[1]['macro avg']['f1-score']]
     }
-    
+
     df_new = pd.DataFrame(data=d)
     df_new['timestamp'] = pd.to_datetime(df_new['timestamp'], format='%Y%m%d_%H%M%S')
-    
+
     if os.path.exists(df_output_path):
       df_old = pd.read_csv(df_output_path, index_col=0)
-      pd.concat([df_old, df_new]).reset_index(drop=True).to_csv(df_output_path, mode='w')    
+      pd.concat([df_old, df_new]).reset_index(drop=True).to_csv(df_output_path, mode='w')
     else:
       df_new.to_csv(df_output_path, mode='w')
 
-      
+
 if __name__ == "__main__":
-    initialize(config_path="conf")
-    config = compose("config.yaml", overrides=['model=SBASC'])
-    SBASC(config)()
+    with initialize(config_path="conf"):
+        cfg = compose("config.yaml", overrides=['domain=restaurant3', 'model=WBASC', 'ablation=woSBERT'])
+        # Run SBASC
+        results = WBASC(cfg).labeler(load=False)
+
+        store_run_results(results, cfg.result_path_mapper, cfg.model.name, cfg.ablation.name)

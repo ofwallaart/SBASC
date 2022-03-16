@@ -11,46 +11,25 @@ from run import store_run_results
 # COMMAND ----------
 
 # DBTITLE 1,Do a single run for creating labels
-from tqdm import trange
-
-domains = ['restaurant3', 'restaurant5', 'laptop']
-for domain in domains:
-  for i in trange(5):
-    with initialize(config_path="conf"):
-      cfg = compose("config.yaml", overrides=[f'domain={domain}', 'model=SBASC', 'environment=databricks', 'ablation=woSBERT'])
-      results = SBASC(cfg)(load=True)
-      store_run_results(results, cfg.result_path_mapper, cfg.model.name, cfg.ablation.name)
-
-# COMMAND ----------
-
 with initialize(config_path="conf"):
-      cfg = compose("config.yaml", overrides=[f'domain=restaurant3', 'model=SBASC', 'environment=databricks', 'ablation=woSBERT'])
-      results = SBASC(cfg)(load=True)
-
-# COMMAND ----------
-
-from pyspark.sql.functions import avg, col, lit, when
-
-df = spark.read.format('csv').options(header='true', inferSchema='true').load('dbfs:/FileStore/kto/results/restaurant-3/SBASC/results.csv')
-# df = df.withColumn('ablation', when(col('ablation') == 'WithoutSBERT', lit('none')).otherwise(col('ablation')))
-
-display(df.groupBy('type', 'ablation').agg(avg('accuracy'), avg('precision'), avg('recall'), avg('f1-score'))) 
-
-# df.toPandas().to_csv('/dbfs/FileStore/kto/results/laptop/SBASC/results.csv', mode='w')
+  cfg = compose("config.yaml", overrides=[f'domain=restaurant3', 'model=WBASC', 'environment=databricks', 'ablation=none'])
+  results = WBASC(cfg)(load=True, evaluate=False)
 
 # COMMAND ----------
 
 # DBTITLE 1,Hyperparameter tuning
-with initialize(config_path="conf"):
-    cfg = compose("config.yaml", overrides=['domain=laptop', 'model=SBASC', 'environment=databricks'])
-    models = [SBASC(cfg)]
+domains = ['restaurant3']
+for domain in domains:
+  with initialize(config_path="conf"):
+    cfg = compose("config.yaml", overrides=[f'domain={domain}', 'model=WBASC', 'environment=databricks'])
+    models = [WBASC(cfg)]
     run_trials(models, cfg, 60)
 
 # COMMAND ----------
 
 import pickle
 
-trials = pickle.load(open("/dbfs/FileStore/kto/results/laptop/SBASC/results.pkl", "rb"))
+trials = pickle.load(open("/dbfs/FileStore/kto/results/restaurant-3/WBASC/results.pkl", "rb"))
 best = trials.best_trial['result']
 print(best)
 for trial in trials.trials:
@@ -58,3 +37,18 @@ for trial in trials.trials:
   print(trial['result']['accuracy'])
   print(trial['result']['space'])
   print()
+
+# COMMAND ----------
+
+# DBTITLE 1,Run 5 times for creating results
+from tqdm import trange
+
+domains = ['laptop']
+ablations = ['woDL', 'woSBERT']
+for domain in domains:
+  for ablation in ablations:
+    for i in trange(5):
+      with initialize(config_path="conf"):
+        cfg = compose("config.yaml", overrides=[f'domain={domain}', 'model=WBASC', 'environment=databricks', f'ablation={ablation}'])
+        results = WBASC(cfg)(load=True, evaluate=False)
+        store_run_results(results, cfg.result_path_mapper, cfg.model.name, cfg.ablation.name)

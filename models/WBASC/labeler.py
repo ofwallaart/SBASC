@@ -89,10 +89,11 @@ def get_rep_sentences(self, embeddings, cosine_scores_train, aspect_seed, aspect
 
         # Fill top sentences to size N with most relevant sentences
         for i, t_item in enumerate(top.tolist()):
+            print(len(final_top), N)
             if seeds_not_in_sent[i] or t_item in final_top or len(train_sentences[t_item].split()) <= 1:
                 continue
             else:
-                if len(final_top) > N[self.domain]:
+                if len(final_top) > N:
                     break
                 final_top.append(t_item)
 
@@ -207,10 +208,10 @@ class Labeler:
             if use_two_step:
                 cosine_category_test_scores = get_rep_sentences(self, embeddings, cosine_category_scores,
                                                                 category_seeds, self.categories, embeddings_marco,
-                                                                test_embeddings, self.N)
+                                                                self.N, test_embeddings)
                 cosine_polarity_test_scores = get_rep_sentences(self, embeddings, cosine_polarity_scores,
                                                                 polarity_seeds, self.polarities, embeddings_marco,
-                                                                test_embeddings, self.N)
+                                                                self.N, test_embeddings)
             else:
                 cosine_category_test_scores, cosine_polarity_test_scores = torch.split(
                     util.cos_sim(seed_embeddings, test_embeddings), split)
@@ -318,7 +319,8 @@ class Labeler:
             torch.save(embeddings, f'{self.root_path}/sbert_train_embeddings.pickle')
             torch.save(embeddings_marco, f'{self.root_path}/sbert_train_embeddings_marco.pickle')
 
-        return seed_embeddings, seed_embeddings_marco, embeddings, embeddings_marco
+        self.sentences = self.sentences[:20000]
+        return seed_embeddings[:20000], seed_embeddings_marco[:20000], embeddings[:20000], embeddings_marco[:20000]
 
 
 if __name__ == '__main__':

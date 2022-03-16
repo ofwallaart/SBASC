@@ -19,7 +19,7 @@ class WBASC:
             results = labeler(load=load, evaluate=True)
         else:
             labeler(load=load, evaluate=evaluate)
-            dataset = trainer.load_training_data()
+            dataset = trainer.load_training_data(file='label-sbert.txt')
             trainer.train_model(dataset)
             results = trainer.evaluate()
 
@@ -31,7 +31,7 @@ class WBASC:
 
     def hypertuning(self, params):
         trainer = Trainer(self.cfg, *params)
-        dataset = trainer.load_training_data()
+        dataset = trainer.load_training_data(file='label-sbert.txt')
         loss, acc = trainer.train_model(dataset, hyper=True)
 
         return loss, acc

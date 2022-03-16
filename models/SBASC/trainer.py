@@ -48,11 +48,12 @@ class Trainer:
         self.polarity_dict = polarity_dict
         self.inv_polarity_dict = inv_polarity_dict
 
-    def load_training_data(self):
+    def load_training_data(self, file='label-sentences.txt'):
+        print(f'Loading file from {file}')
         sentences = []
         cats = []
         pols = []
-        with open(f'{self.root_path}/label-sentences.txt', 'r', encoding="utf8") as f:
+        with open(f'{self.root_path}/{file}', 'r', encoding="utf8") as f:
             for idx, line in enumerate(f):
                 if idx % 2 == 1:
                     cat, pol = line.strip().split()

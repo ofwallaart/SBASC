@@ -1,0 +1,125 @@
+# @package _global_
+domain:
+  cat_threshold: 0.65
+  pol_threshold: 0.55
+
+  aspect_seed_mapper:
+    service: [
+      "met de zelfscankassa heb ik slechte ervaringen",
+      "prima winkelen met handscanner en gelijk weg",
+      "snelle afrekenen mogelijkheid",
+      "na de verbouwing is het afrekenen echt een ergernis geworden , er zijn minder normale kassa , dus lange wachtrijen",
+      "te lange rij bij de kassa",
+      "te lange wachttijden bij de kassa",
+      "zeer onaardige oudere dame achter de servicebalie",
+      "te lange wachttijden bij kassa en servicebalie",
+      "betere service bij kassa",
+      "de vriendelijke mevrouw aan de balie "
+    ]
+    assortiment: [
+      "een goed assortiment",
+      "breed aanbod",
+      "meer biologisch vers aanbod ",
+      "veel vegan en bio mogelijkheden" ]
+    beschikbaarheid: [
+      "beschikbaarheid van artikelen is zeer goed",
+      "zorgen dat niet steeds veel artikelen uitverkocht zijn",
+      "voorraad beter aanvullen",
+      "bonus aanbiedingen zijn vaak niet ( meer ) voorradig",
+      "veel vakken leeg",
+      "zorgen dat de producten op voorraad zijn",
+      "komt regelmatig voor dat om 12.30 uur het brood is uitverkocht .",
+      "heel vaak zijn de bonus aanbiedingen uitverkocht" ]
+    corona: [
+      "winkel is niet corona veilig",
+      "houden zich ook uitstekend aan de covid maatregelen",
+      "mensen er op wijzen dat ze een mondkapje op moeten , dat dit mondkapje ook over de neus moet ",
+      "zorgen dat je je handen kunt schoonmaken bij de ingang",
+      "beter letten op de coronamaatregelen",
+      "hygiëne en handhaving covid maatregelen laat te wensen over",
+      "schoonmaakmiddelen voor kar prominenter aanwezig" ]
+    kwaliteit: [
+      "groente en fruit niet erg vers",
+      "de kwaliteit van fruit en groente is nogal eens niet zo best zoals bij de kersen , sperziebonen etc .",
+      "gekocht fruit is na enkele dagen rot .",
+      "alweer beschimmelde groenten",
+      "houdbaarheid beter in de gaten houden" ]
+    winkel: [
+      "goede parkeer mogelijkheden ",
+      "je fiets stallen is lastig",
+      "ingang en buiten omgeving verbeteren ",
+      "de omgeving is erg vuil . vooral het trappenhuis van de parkeergarage",
+      "jongeren hangen hier rond",
+      "parkeergarage is heel vervelend",
+      "krappe paden , voelt niet fijn .",
+      "na de verbouwing een onmogelijke winkel geworden in het kassa gedeelte",
+      "het beschikbaar stellen van een toilet",
+      "te weinig ruimte",
+      "vrij ruim in opzet en ik maak dankbaar gebruik van de parkeergarage",
+      "uitbreiden van het pand",
+      "zorgen dat de entree schoon is",
+      "inpaktafel weer terug plaatsen , nu erg lastig om boodschappen in te pakken",
+      "de wifi werkt niet",
+      "goed werkende internetverbinding",
+      "muziek staat te hard" ]
+    personeel: [
+      "klantvriendelijke mensen met goede service",
+      "vriendelijk en behulpzaam personeel",
+      "leidinggevenden zouden wel vriendelijker mogen zijn",
+      "goede hulp bij vragen",
+      "fijn personeel",
+      "slecht ongeïnteresseerd personeel , te jong en vooral bezig met elkaar",
+      "vakkenvullers zijn nadrukkelijk aanwezig",
+      "personeel aanspreken op gedrag",
+      "de vakkenvullers versperren de paden",
+      "gangpaden staan vol met goederen en vakkenvullers",
+      "betere aansturing vakkenvullers zodat ze niet de klanten verjagen en rijen blokkeren",
+      "minder obstakels in de paden",
+      "minder vakkenvullers tijdens openingen" ]
+    opgeruimd: [
+      "ik vind dat de winkel rommelig is vooral bij de voormalige vleeswaren afd ",
+      "de winkel is smerig",
+      "minder afval in de gangen",
+      "deel groentenafdeling was vies",
+      "opruimen in en rond de winkel",
+      "zeer schone zaak",
+      "de winkel is schoon en opgeruimd",
+      "beter spiegelen",
+      "prullenbakken sneller legen" ]
+    prijzen: [
+      "betere kwaliteit prijs verhoudingen",
+      "ah is nu eenmaal duur",
+      "goedkoper worden . de prijzen zijn , net als de winsten ! .... de laatste jaren behoorlijk gestegen !",
+      "ik sta tevaak bij de service balie om 35 % korting te krijgen of omdat de kassabon niet klopt" ]
+    overig: [
+      "gezond en duurzaam assortiment maar daar in de praktijk niet veel van waar maakt",
+      "bloemen niet uitnodigend om te kopen",
+      "bezorgen via jumbo werkt beter",
+      "reeds diverse malen aangegeven , maar er verandert niets",
+      "reden is bekend , al vele malen opgegeven",
+      "ik doe geen aanbevelingen",
+      "zie mijn antwoorden in eerdere onderzoeken .",
+      "reageren op mijn eerdere opmerkingen" ]
+
+  sentiment_seed_mapper:
+    positive: [
+      "over het algemeen een erg goede supermarkt",
+      "schone , ruime winkel met vriendelijk en behulpzaam personeel",
+      'assortiment en personeel zijn uitstekend .',
+      "goed winkel met een excellent medewerkers .",
+      "ruim assortiment"]
+    negative: [
+      "deze ah winkel onderscheidt zicht niet t.o.v . jumbo",
+      "rommelig en slecht assortiment",
+      "slechte groenten",
+      "onvriendelijk personeel",
+      "ik ben teleurgesteld over de aanlevering van de voorraden ",
+      "producten niet altijd beschikbaar , vakkenvullers vreselijk in de weg en onvriendelijk , fruit/groente niet altijd echt vers en fris ."]
+
+  params:
+    learning_rate: 1e-6
+    beta1: 0.9
+    beta2: 0.97
+    batch_size: 12
+    gamma1: 4
+    gamma2: 4

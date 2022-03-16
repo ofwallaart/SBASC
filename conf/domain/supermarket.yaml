@@ -1,0 +1,37 @@
+name: laptop
+bert_mapper: /dbfs/FileStore/kto/kto/BERT-DK_kto
+sbert_mapper: paraphrase-multilingual-mpnet-base-v2
+
+aspect_category_mapper: ['service', 'assortiment', 'beschikbaarheid', 'corona', 'kwaliteit', 'winkel', 'personeel', 'opgeruimd', 'prijzen', 'overig']
+aspect_seed_mapper:
+  service: ["scanner", "zelfscan", "handscanner", "houders", "afrekenen", "kassa", "rij", "wachttijd", "servicebalie", "wachttijd", "service", "balie", "servicedesk"]
+  assortiment: ["assortiment", "aanbod", "biologische", "vegan"]
+  beschikbaarheid: ["beschikbaarheid", "uitverkocht", "voorraad", "verkrijgbaar", "leeg", "aanvullen", "brood", "afbakken", "bonus"]
+  corona: ["corona", "covid", "mondkapje", "desinfecteren", "coronamaatregelen", "maatregelen", "winkelwagen"]
+  kwaliteit: ["vers", "kwaliteit", "rot", "beschimmeld", "houdbaarheid"]
+  winkel: ["Parkeren","fiets","buiten","parkeerplaats","fietsenstalling","hangjongeren","garage", "smal", "indeling", "toilet", "ruimte", "opzet", "uitbreiden", "ingang", "inpaktafel", "wifi", "internet", "muziek"]
+  personeel: ["klantvriendelijk", "begroeten", "behulpzaam", "vriendelijk", "hulp", "personeel", "weinig", "vragen", "aanwezig", "aanspreken", "versperren", "gangpad", "blokkeren", "obstakels", "vakkenvullers"]
+  opgeruimd: ["rommelig", "smerig", "afval", "vies", "opruimen", "schoon", "opgeruimd", "spiegelen", "prullenbak"]
+  prijzen: ["prijs", "duur", "goedkoper", "35%"]
+  overig: ["duurzaam", "bloemen", "bezorgen", "reeds", "vermeld", "enquete", "eerdere", "opmerking"]
+
+sentiment_category_mapper: ['negative', 'positive']
+sentiment_seed_mapper:
+  positive: ["goed", "geweldig", 'uitstekend', "excellent", "perfect"]
+  negative: ["slecht", "verschrikkelijk", "afgrijselijk", "teleurgesteld ", "vreselijk"]
+
+validation_data_size: 150
+hyper_validation_size: 0.8
+
+cat_threshold: 0.7
+pol_threshold: 0.4
+
+N: 9
+
+params:
+  learning_rate: 1e-5
+  beta1: 0.9
+  beta2: 0.999
+  batch_size: 24
+  gamma1: 3
+  gamma2: 3

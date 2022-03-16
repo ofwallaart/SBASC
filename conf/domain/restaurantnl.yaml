@@ -1,0 +1,32 @@
+name: laptop
+bert_mapper: /dbfs/FileStore/kto/restaurant-nl/pt_runs/pt_bertselect-Bert
+sbert_mapper: paraphrase-multilingual-mpnet-base-v2
+
+aspect_category_mapper: ['location', 'drinks', 'food', 'ambience', 'service']
+aspect_seed_mapper:
+        location: ["locatie", "straat", "wijk", "rivier", "laan"]
+        drinks: ["drankjes", "drank", "wijn", "bier", "sake"]
+        food: ["eten", "pittig", "sushi", "pizza", "smaak"]
+        ambience: ["sfeervol", "atmosfeer", "ruimte", "zitplek", "inrichting"]
+        service: ["service", "fooi", "bediening", "serveerster", "personeel"]
+
+sentiment_category_mapper: ['negative', 'positive']
+sentiment_seed_mapper:
+        positive: ["goed", "geweldig", 'fijn', "excellent", "perfect"]
+        negative: ["slecht", "verschrikkelijk", "afgrijselijk", "teleurgesteld ", "vreselijk"]
+
+validation_data_size: 150
+hyper_validation_size: 0.8
+
+cat_threshold: 0.7
+pol_threshold: 0.4
+
+N: 9
+
+params:
+        learning_rate: 1e-5
+        beta1: 0.9
+        beta2: 0.999
+        batch_size: 24
+        gamma1: 3
+        gamma2: 3

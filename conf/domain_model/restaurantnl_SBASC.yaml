@@ -1,0 +1,70 @@
+# @package _global_
+domain:
+  cat_threshold: 0.65
+  pol_threshold: 0.55
+
+  aspect_seed_mapper:
+        location: [
+          "leuke locatie midden in voorschoten in een mooi pand",
+          "een mooi zaakje in een leuke straat",
+          "zino urban bistro ligt in een nieuw opgeknapte wijk van rotterdam",
+          "een prachtige locatie met een fraai uitzicht over de rivier de merwede",
+          "geweldige nieuwe locatie in centrum harderwijk ."]
+        drinks: [
+          "overige drankjes zijn overigens keurig geprijsd .",
+          "voorraad drank ( witte wijn en alcoholvrij bier ) was onvoldoende ( slechts 1 fles wijn van 1 soort en 1 flesje alcoholvrij bier )",
+          "de wijnen die worden geschonken zijn erg lekker",
+          "bier smaakt er altijd goed",
+          "de sake was goed op temperatuur"]
+        food: [
+          "het eten is goed",
+          "de smaken zijn geweldig soms wel wat pittig",
+          "alle gerechten smaken hetzelfde"
+          "van sushi rolls vond ik eigenlijk niets echt lekker , het was oke maar vaak gewoon zonder smaak",
+          "pizza gegeten en ze waren weer heerlijk",
+          "ik was niet erg enthousiast over de smaak van het eten"]
+        ambience: [
+          "inrichting en ambiance is sfeervol",
+          "het interieur is wat sleets maar de atmosfeer is prima",
+          "je zit niet in een massale ruimte , dus gezellige sfeer",
+          "er is niet superveel zitplek , dus als je echt even wilt zitten en genieten , reserveer dan even",
+          "inrichting niet echt gezellig"]
+        service: [
+          "service kan wat beter",
+          "de service was ook uitstekend zeer aardig personeel",
+          "bediening ging snel",
+          "de reactie van de serveerster was uitermate onvriendelijk en onbevredigend",
+          "we komen zeker terug , onwijs vriendelijk personeel"]
+
+  sentiment_seed_mapper:
+    positive: [
+      "service was geweldig",
+      "van zeer goede kwaliteit en lekker mals vlees",
+      "je zit er gezellig en het personeel is heel vriendelijk en gastvrij",
+      "leuke ontvangst , goede service , goede variatie in keuze , voor elk wat wils .",
+      "ik vond alles aan de restaurant heel goed",
+      "heerlijk gegeten . vriendelijke bediening . een aanrader !",
+      "het eten komt snel op tafel",
+      "erg schoon, goed personeel , lekker eten",
+      "erg lekker gegeten voor een eerlijke prijs"
+    ]
+    negative: [
+      "helaas hebben we anderhalf uur moeten wachten op ons eten . het personeel reageerde laconiek . eten was ok , maar niet bijzonder .",
+      "the service over the past year is terrible",
+      "de snelheid waarmee het eten geserveerd wordt laat ook te wensen over",
+      "het zitcomfort van de banken is gewoon slecht",
+      "verschrikkelijk , te duur eten",
+      "de bediening was dramatisch",
+      "slecht gegeten , hapjes die wij bestelden kregen wij niet . slechte bediening en op het laatst wilden wij nog 1 drankje bestellen , maar helaas ze gingen sluiten .",
+      "tafel was vrij vies en leek al een tijd niet schoongemaakt .",
+      "het eten was te koud en te klef",
+      "service was langzaam"
+    ]
+
+  params:
+    learning_rate: 1e-5
+    beta1: 0.9
+    beta2: 0.999
+    batch_size: 24
+    gamma1: 3
+    gamma2: 3

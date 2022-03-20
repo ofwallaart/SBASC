@@ -21,8 +21,8 @@ sentiment_seed_mapper:
 validation_data_size: 150
 hyper_validation_size: 0.8
 
-cat_threshold: 0.55
-pol_threshold: 0.4
+cat_threshold: 0.5
+pol_threshold: 0.3
 
 N: 9
 
@@ -30,6 +30,6 @@ params:
         learning_rate: 1e-6
         beta1: 0.99
         beta2: 0.97
-        batch_size: 12
+        batch_size: 18
         gamma1: 4
         gamma2: 4

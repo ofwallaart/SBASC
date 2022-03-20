@@ -1,26 +1,26 @@
 # @package _global_
 domain:
-  cat_threshold: 0.65
-  pol_threshold: 0.55
+  cat_threshold: 0.75
+  pol_threshold: 0.6
 
   aspect_seed_mapper:
         location: [
           "leuke locatie midden in voorschoten in een mooi pand",
           "een mooi zaakje in een leuke straat",
-          "zino urban bistro ligt in een nieuw opgeknapte wijk van rotterdam",
+          "ligt een beetje uit het centrum en dus wat minder druk",
           "een prachtige locatie met een fraai uitzicht over de rivier de merwede",
           "geweldige nieuwe locatie in centrum harderwijk ."]
         drinks: [
-          "overige drankjes zijn overigens keurig geprijsd .",
+          "de wijn is erg duur .",
           "voorraad drank ( witte wijn en alcoholvrij bier ) was onvoldoende ( slechts 1 fles wijn van 1 soort en 1 flesje alcoholvrij bier )",
           "de wijnen die worden geschonken zijn erg lekker",
           "bier smaakt er altijd goed",
+          "de cocktails kwamen pas erg laat maar zijn wel lekker",
           "de sake was goed op temperatuur"]
         food: [
-          "het eten is goed",
           "de smaken zijn geweldig soms wel wat pittig",
-          "alle gerechten smaken hetzelfde"
-          "van sushi rolls vond ik eigenlijk niets echt lekker , het was oke maar vaak gewoon zonder smaak",
+          "alle gerechten waren erg duur",
+          "van sushi rolls vond ik eigenlijk niets echt lekker",
           "pizza gegeten en ze waren weer heerlijk",
           "ik was niet erg enthousiast over de smaak van het eten"]
         ambience: [
@@ -34,7 +34,7 @@ domain:
           "de service was ook uitstekend zeer aardig personeel",
           "bediening ging snel",
           "de reactie van de serveerster was uitermate onvriendelijk en onbevredigend",
-          "we komen zeker terug , onwijs vriendelijk personeel"]
+          "onwijs vriendelijk personeel"]
 
   sentiment_seed_mapper:
     positive: [
@@ -50,7 +50,6 @@ domain:
     ]
     negative: [
       "helaas hebben we anderhalf uur moeten wachten op ons eten . het personeel reageerde laconiek . eten was ok , maar niet bijzonder .",
-      "the service over the past year is terrible",
       "de snelheid waarmee het eten geserveerd wordt laat ook te wensen over",
       "het zitcomfort van de banken is gewoon slecht",
       "verschrikkelijk , te duur eten",
@@ -58,13 +57,18 @@ domain:
       "slecht gegeten , hapjes die wij bestelden kregen wij niet . slechte bediening en op het laatst wilden wij nog 1 drankje bestellen , maar helaas ze gingen sluiten .",
       "tafel was vrij vies en leek al een tijd niet schoongemaakt .",
       "het eten was te koud en te klef",
-      "service was langzaam"
+      "service was langzaam",
+      "gerechten duurden veel te lang .",
+      "het was niet bijzonder .",
+      "het eten was prima , maar de eigenaar deed niets tegen gasten die overlast gaven .",
+      "bijna alles was op",
+      "kleine porties , half rauw vlees , kortom : waardeloos ."
     ]
 
   params:
-    learning_rate: 1e-5
+    learning_rate: 1e-6
     beta1: 0.9
     beta2: 0.999
-    batch_size: 24
-    gamma1: 3
-    gamma2: 3
+    batch_size: 12
+    gamma1: 4
+    gamma2: 4

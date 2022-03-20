@@ -89,7 +89,6 @@ def get_rep_sentences(self, embeddings, cosine_scores_train, aspect_seed, aspect
 
         # Fill top sentences to size N with most relevant sentences
         for i, t_item in enumerate(top.tolist()):
-            print(len(final_top), N)
             if seeds_not_in_sent[i] or t_item in final_top or len(train_sentences[t_item].split()) <= 1:
                 continue
             else:
@@ -112,10 +111,6 @@ def get_rep_sentences(self, embeddings, cosine_scores_train, aspect_seed, aspect
         else:
             topk_scores.append(torch.max(util.cos_sim(topk_embeddings, embeddings), dim=0)[0].unsqueeze(dim=-1))
 
-            for i in final_top:
-                print(train_sentences[i])
-            print()
-
     return torch.t(torch.cat(topk_scores, 1))
 
 
@@ -123,7 +118,10 @@ class Labeler:
     def __init__(self, cfg):
         self.domain = cfg.domain.name
         self.model = SentenceTransformer(cfg.domain.sbert_mapper, device=cfg.device)
-        self.marco_model = SentenceTransformer('msmarco-distilbert-base-v4', device=config['device'])
+        if cfg.domain.name == 'restaurantnl':
+          self.marco_model = self.model
+        else:
+          self.marco_model = SentenceTransformer('msmarco-distilbert-base-v4', device=config['device'])
         self.cat_threshold = cfg.domain.cat_threshold
         self.pol_threshold = cfg.domain.pol_threshold
         self.root_path = cfg.path_mapper
@@ -182,7 +180,9 @@ class Labeler:
         self.labels = labels
 
         # No conflict (avoid multi-class sentences)
-        labels = np.transpose(labels[:, (labels[1, :] >= self.cat_threshold) & (labels[3, :] >= self.pol_threshold)])
+        #labels = np.transpose(labels[:, (labels[1, :] >= self.cat_threshold) & (labels[3, :] >= self.pol_threshold)]) 
+        
+        labels = np.transpose(labels[:, (labels[1, :] >= self.cat_threshold) & (labels[3, :] >= self.pol_threshold)]) 
 
         nf = open(f'{self.root_path}/label-sbert.txt', 'w', encoding="utf8")
         cnt = {}
@@ -221,13 +221,13 @@ class Labeler:
 
             print("Polarity")
             print(classification_report(
-                test_pols, polarity_test_argmax, target_names=sentiment_category_mapper[self.domain], digits=4
+                test_pols, polarity_test_argmax, target_names=self.polarities, digits=4
             ))
             print()
 
             print("Aspect")
             print(classification_report(
-                test_cats, category_test_argmax, target_names=aspect_category_mapper[self.domain], digits=4
+                test_cats, category_test_argmax, target_names=self.categories, digits=4
             ))
             print()
             print(confusion_matrix(test_cats, category_test_argmax))
@@ -263,7 +263,7 @@ class Labeler:
 
 
     def __bert_embedder(self, load, seeds):
-        tokenizer = AutoTokenizer.from_pretrained(self.cfg.domain.bert_mapper)
+        tokenizer = AutoTokenizer.from_pretrained(self.cfg.domain.bert_mapper) #self.cfg.domain.bert_mapper
         model = BertModel.from_pretrained(self.cfg.domain.bert_mapper, output_hidden_states=True).to('cuda')
 
         batch_size = 24
@@ -301,7 +301,8 @@ class Labeler:
             print(f'Saving embeddings to {self.root_path}')
             torch.save(embeddings_bert, f'{self.root_path}/bert_avg_train_embeddings.pickle')
 
-        return seed_embeddings_bert, seed_embeddings_bert, embeddings_bert, embeddings_bert
+        self.sentences = self.sentences[:20000]
+        return seed_embeddings_bert[:20000], seed_embeddings_bert[:20000], embeddings_bert[:20000], embeddings_bert[:20000]
 
     def __sbert_embedder(self, load, seeds):
         seed_embeddings = self.model.encode(list(seeds.values()), convert_to_tensor=True, show_progress_bar=True)

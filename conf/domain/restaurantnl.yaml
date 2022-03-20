@@ -1,4 +1,4 @@
-name: laptop
+name: restaurant-nl
 bert_mapper: /dbfs/FileStore/kto/restaurant-nl/pt_runs/pt_bertselect-Bert
 sbert_mapper: paraphrase-multilingual-mpnet-base-v2
 

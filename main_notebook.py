@@ -12,8 +12,8 @@ from run import store_run_results
 
 # DBTITLE 1,Do a single run for creating labels
 with initialize(config_path="conf"):
-  cfg = compose("config.yaml", overrides=[f'domain=restaurant3', 'model=WBASC', 'environment=databricks', 'ablation=none'])
-  results = WBASC(cfg)(load=True, evaluate=False)
+  cfg = compose("config.yaml", overrides=[f'domain=restaurantnl', 'model=SBASC', 'environment=databricks', 'ablation=none'])
+  results = SBASC(cfg)(load=True, evaluate=True)
 
 # COMMAND ----------
 
@@ -44,11 +44,18 @@ for trial in trials.trials:
 from tqdm import trange
 
 domains = ['laptop']
-ablations = ['woDL', 'woSBERT']
+ablations = ['woDL']
 for domain in domains:
   for ablation in ablations:
-    for i in trange(5):
       with initialize(config_path="conf"):
-        cfg = compose("config.yaml", overrides=[f'domain={domain}', 'model=WBASC', 'environment=databricks', f'ablation={ablation}'])
-        results = WBASC(cfg)(load=True, evaluate=False)
+        cfg = compose("config.yaml", overrides=[f'domain={domain}', 'model=SBASC', 'environment=databricks', f'ablation={ablation}'])
+        results = SBASC(cfg)(load=True, evaluate=False)
         store_run_results(results, cfg.result_path_mapper, cfg.model.name, cfg.ablation.name)
+
+# COMMAND ----------
+
+from pyspark.sql.functions import avg, col, lit, when
+
+df = spark.read.format('csv').options(header='true', inferSchema='true').load('dbfs:/FileStore/kto/results/restaurant-nl/SBASC/results.csv')
+display(df.sort("ablation","type")) 
+# display(df[df['timestamp'] > '2022-03-16'].sort("ablation","type")) 

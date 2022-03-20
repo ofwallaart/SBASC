@@ -67,7 +67,7 @@ class Labeler:
         self.sentences = load_training_data(f'{self.root_path}/train.txt')
 
         # Load different embeddings for ablation study
-        if self.cfg.ablation == 'WithoutSBERT':
+        if self.cfg.ablation.name == 'WithoutSBERT':
             seed_embeddings, embeddings = self.__bert_embedder(load, seeds)
         else:
             seed_embeddings, embeddings = self.__sbert_embedder(load, seeds)
@@ -104,7 +104,14 @@ class Labeler:
         # # No conflict (avoid multi-class sentences)
         # labels = np.transpose(labels[:, ((labels[1, :] >= labels[5, :])) & ((labels[3, :] >= labels[6, :]))])
 
-        labels = np.transpose(labels[:, (labels[1, :] >= self.cat_threshold) & (labels[3, :] >= self.pol_threshold)])
+        
+        
+        if self.domain == 'restaurant-nl':
+            labels = np.transpose(labels[:,
+                        (((labels[2, :] == 1) & (labels[1, :] >= self.cat_threshold)) | ((labels[2, :] == 0) & (labels[1, :] >= (self.cat_threshold - 0.1)))) &
+                        (((labels[2, :] == 1) & (labels[3, :] >= self.pol_threshold)) | ((labels[2, :] == 0) & (labels[3, :] >= (self.pol_threshold - 0.1))))])
+        else:
+            labels = np.transpose(labels[:, (labels[1, :] >= self.cat_threshold) & (labels[3, :] >= self.pol_threshold)]) 
 
         nf = open(f'{self.root_path}/label-sentences.txt', 'w', encoding="utf8")
         cnt = {}

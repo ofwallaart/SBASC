@@ -1,4 +1,4 @@
-name: laptop
+name: supermarket
 bert_mapper: /dbfs/FileStore/kto/kto/BERT-DK_kto
 sbert_mapper: paraphrase-multilingual-mpnet-base-v2
 

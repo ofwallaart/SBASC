@@ -47,8 +47,8 @@ def store_run_results(results, path, model_name, ablation):
 
 if __name__ == "__main__":
     with initialize(config_path="conf"):
-        cfg = compose("config.yaml", overrides=['domain=restaurant3', 'model=WBASC', 'ablation=woSBERT'])
+        cfg = compose("config.yaml", overrides=['domain=restaurantnl', 'model=WBASC', 'ablation=woSBERT'])
         # Run SBASC
-        results = WBASC(cfg).labeler(load=False)
+        results = WBASC(cfg).labeler(load=True)
 
-        store_run_results(results, cfg.result_path_mapper, cfg.model.name, cfg.ablation.name)
+        # store_run_results(results, cfg.result_path_mapper, cfg.model.name, cfg.ablation.name)

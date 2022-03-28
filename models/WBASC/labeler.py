@@ -301,7 +301,8 @@ class Labeler:
             print(f'Saving embeddings to {self.root_path}')
             torch.save(embeddings_bert, f'{self.root_path}/bert_avg_train_embeddings.pickle')
 
-        return seed_embeddings_bert, seed_embeddings_bert, embeddings_bert, embeddings_bert
+        self.sentences = self.sentences[:20000]
+        return seed_embeddings_bert[:20000], seed_embeddings_bert[:20000], embeddings_bert[:20000], embeddings_bert[:20000]
 
     def __sbert_embedder(self, load, seeds):
         seed_embeddings = self.model.encode(list(seeds.values()), convert_to_tensor=True, show_progress_bar=True)

@@ -3,7 +3,7 @@ ablation:
   name: WithoutSBERT
   
 domain:
-  cat_threshold: 0.85
-  pol_threshold: 0.85
+  cat_threshold: 0.95
+  pol_threshold: 0.95
   
     

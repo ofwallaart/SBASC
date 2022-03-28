@@ -106,6 +106,6 @@ def run_trials(models, cfg, max_evals = 30):
 
 if __name__ == '__main__':
     with initialize(config_path="conf"):
-        cfg = compose("config.yaml", overrides=['domain=restaurant3', 'model=SBASC'])
+        cfg = compose("config.yaml", overrides=['domain=supermarket', 'model=SBASC'])
         models = [SBASC(cfg)]
-        run_trials(models, cfg, 30)
+        run_trials(models, cfg, 50)

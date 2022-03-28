@@ -9,20 +9,27 @@ class SBASC:
         self.name = 'SBASC'
         self.cfg = cfg
         self.params = cfg.domain.params
+        self.trainer = None
 
     def __call__(self, load=True, evaluate=True):
         labeler = Labeler(self.cfg)
-        trainer = Trainer(self.cfg, **self.params)
+        self.trainer = Trainer(self.cfg, **self.params)
 
         if self.cfg.ablation.name == 'WithoutDeepLearning':
             results = labeler(load=load, evaluate=True)
         else:
             labeler(load=load, evaluate=evaluate)
-            dataset = trainer.load_training_data()
-            trainer.train_model(dataset)
-            results = trainer.evaluate()
+            dataset = self.trainer.load_training_data()
+            self.trainer.train_model(dataset)
+            results = self.trainer.evaluate()
 
         return results
+      
+    def save(self, name):
+        self.trainer.save_model(name)
+
+    def load(self, name):
+        self.trainer.load_model(name)
 
     def labeler(self, load=True):
         labeler = Labeler(self.cfg)
@@ -34,7 +41,9 @@ class SBASC:
         loss, acc = trainer.train_model(dataset, hyper=True)
 
         return loss, acc
-
+      
+    def predict(self, sentences):
+        return self.trainer.predict(sentences)
 
 if __name__ == '__main__':
     initialize(config_path="conf")

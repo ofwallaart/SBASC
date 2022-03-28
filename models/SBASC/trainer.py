@@ -209,6 +209,38 @@ class Trainer:
 
     def load_model(self, name):
         self.model = torch.load(f'{self.root_path}/{name}.pth')
+        
+    def predict(self, sentences):
+        model = self.model
+        model.eval()
+        device = self.device
+
+        predicted_aspect = []
+        predicted_polarity = []
+
+        logits_cats = []
+        logits_pols = []
+
+        with torch.no_grad():
+            for input in tqdm(sentences):
+                encoded_dict = self.tokenizer([input],
+                                              padding=True,
+                                              return_tensors='pt',
+                                              return_attention_mask=True,
+                                              truncation=True).to(device)
+
+                loss, logits_cat, logits_pol = model(torch.tensor([0]).to(
+                    device), torch.tensor([0]).to(device), **encoded_dict)
+
+                predicted_aspect.append(
+                    self.aspect_dict[torch.argmax(logits_cat).item()])
+                predicted_polarity.append(
+                    self.polarity_dict[torch.argmax(logits_pol).item()])
+
+                logits_cats.append(logits_cat)
+                logits_pols.append(logits_pol)
+
+        return predicted_aspect, predicted_polarity, torch.cat(logits_cats, 0), torch.cat(logits_pols, 0)
 
     def evaluate(self):
         test_sentences = []

@@ -1,27 +1,34 @@
 # @package _global_
 domain:
-  cat_threshold: 0.75
-  pol_threshold: 0.6
+  cat_threshold: 0.6
+  pol_threshold: 0.55
 
   aspect_seed_mapper:
     service: [
       "met de zelfscankassa heb ik slechte ervaringen",
-      "zelfscan is erg fijn",
+      "prima winkelen met handscanner en gelijk weg",
       "snelle afrekenen mogelijkheid",
       "na de verbouwing is het afrekenen echt een ergernis geworden , er zijn minder normale kassa , dus lange wachtrijen",
       "te lange rij bij de kassa",
       "te lange wachttijden bij de kassa",
       "zeer onaardige oudere dame achter de servicebalie",
-      "meer gewone kassa 's openen . bij de gewone kassa staan vaak heel lange rijen",
+      "te lange wachttijden bij kassa en servicebalie",
       "betere service bij kassa",
-      "de controle bij de zelfscan kassa vindt ik onprettig"
+      "de vriendelijke mevrouw aan de balie "
     ]
+    app: [
+      "de winkelroute in de app werkt erg slecht , niet alle producten die wel in de winkel zijn staan in de app .", 
+      "de ah app aanpassen aan de AH winkel waar de boodschappen gedaan worden",
+      "het inwisselen van volle zegelboekjes vanuit de app werkt bijzonder moeilijk .",
+      "die stomme app afschaffen of mensen die hem niet hebben dezelfde voordelen bieden",
+      "in de app staat regelmatig dat een product onbekend is maar dan toch gewoon in de schappen",
+      "de ah app ziet er erg mooi uit"
+      ]
     assortiment: [
-      "een goed assortiment aan artikelen en veel keuze",
-      "breed aanbod aan producten",
-      "goed assortiemnt",
-      "ik zou graag meer biologisch vers aanbod willen zien",
-      "albert heijn heeft veel vegan en bio mogelijkheden in hun assortient" ]
+      "een goed assortiment",
+      "breed aanbod",
+      "meer biologisch vers aanbod ",
+      "veel vegan en bio mogelijkheden" ]
     beschikbaarheid: [
       "beschikbaarheid van artikelen is zeer goed",
       "zorgen dat niet steeds veel artikelen uitverkocht zijn",
@@ -46,26 +53,31 @@ domain:
       "alweer beschimmelde groenten",
       "houdbaarheid beter in de gaten houden" ]
     winkel: [
-      "fijne winkel",
-      "het is gewoon een goede winkel",
+      "goede parkeer mogelijkheden ",
+      "je fiets stallen is lastig",
       "ingang en buiten omgeving verbeteren ",
-      "vooral het trappenhuis van de parkeergarage",
-      "veel zwervers en afval voor de ingang",
+      "de omgeving is erg vuil . vooral het trappenhuis van de parkeergarage",
+      "rondom de winkel is het erg vuis",
+      "buiten licht er veel rommel",
+      "jongeren hangen hier rond",
       "parkeergarage is heel vervelend",
       "krappe paden , voelt niet fijn .",
-      "na de verbouwing een onmogelijke winkel geworden",
+      "na de verbouwing een onmogelijke winkel geworden in het kassa gedeelte",
+      "het beschikbaar stellen van een toilet",
       "te weinig ruimte",
-      "slechte winkel",
-      "ruime winkel",
+      "vrij ruim in opzet en ik maak dankbaar gebruik van de parkeergarage",
       "uitbreiden van het pand",
       "zorgen dat de entree schoon is",
+      "inpaktafel weer terug plaatsen , nu erg lastig om boodschappen in te pakken",
+      "de wifi werkt niet",
+      "goed werkende internetverbinding",
       "muziek staat te hard" ]
     personeel: [
-      "vriendelijk personeel",
+      "klantvriendelijke mensen met goede service",
       "vriendelijk en behulpzaam personeel",
       "leidinggevenden zouden wel vriendelijker mogen zijn",
-      "ik krijg altijd goede hulp bij vragen",
-      "erg fijn en vriendelijk personeel in de winkel",
+      "goede hulp bij vragen",
+      "fijn personeel",
       "slecht ongeïnteresseerd personeel , te jong en vooral bezig met elkaar",
       "vakkenvullers zijn nadrukkelijk aanwezig",
       "personeel aanspreken op gedrag",
@@ -76,19 +88,18 @@ domain:
       "minder vakkenvullers tijdens openingen" ]
     opgeruimd: [
       "ik vind dat de winkel rommelig is vooral bij de voormalige vleeswaren afd ",
-      "de winkel is niet netjes",
-      "erg rommelig",
-      "minder dozen in de paden",
+      "de winkel is smerig",
+      "minder afval in de gangen",
       "deel groentenafdeling was vies",
-      "opruimen in en rond de winkel",
-      "schone winkel",
+      "opruimen in de winkel",
+      "zeer schone zaak",
       "de winkel is schoon en opgeruimd",
-      "meer spiegelen",
+      "beter spiegelen",
       "prullenbakken sneller legen" ]
     prijzen: [
       "betere kwaliteit prijs verhoudingen",
       "ah is nu eenmaal duur",
-      "goedkoper worden .",
+      "goedkoper worden . de prijzen zijn , net als de winsten ! .... de laatste jaren behoorlijk gestegen !",
       "ik sta tevaak bij de service balie om 35 % korting te krijgen of omdat de kassabon niet klopt" ]
     overig: [
       "gezond en duurzaam assortiment maar daar in de praktijk niet veel van waar maakt",
@@ -117,8 +128,8 @@ domain:
 
   params:
     learning_rate: 1e-6
-    beta1: 0.97
-    beta2: 0.99
-    batch_size: 48
-    gamma1: 4
+    beta1: 0.95
+    beta2: 0.999
+    batch_size: 12
+    gamma1: 3
     gamma2: 4

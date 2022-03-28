@@ -1,10 +1,11 @@
-name: supermarket
-bert_mapper: /dbfs/FileStore/kto/kto/BERT-DK_kto
+name: kto_new
+bert_mapper: /dbfs/FileStore/kto/dk/pt_bertselect-Bert
 sbert_mapper: paraphrase-multilingual-mpnet-base-v2
 
-aspect_category_mapper: ['service', 'assortiment', 'beschikbaarheid', 'corona', 'kwaliteit', 'winkel', 'personeel', 'opgeruimd', 'prijzen', 'overig']
+aspect_category_mapper: ['service', 'app', 'assortiment', 'beschikbaarheid', 'corona', 'kwaliteit', 'winkel', 'personeel', 'opgeruimd', 'prijzen', 'overig']
 aspect_seed_mapper:
   service: ["scanner", "zelfscan", "handscanner", "houders", "afrekenen", "kassa", "rij", "wachttijd", "servicebalie", "wachttijd", "service", "balie", "servicedesk"]
+  app: ["app", "looproute"]
   assortiment: ["assortiment", "aanbod", "biologische", "vegan"]
   beschikbaarheid: ["beschikbaarheid", "uitverkocht", "voorraad", "verkrijgbaar", "leeg", "aanvullen", "brood", "afbakken", "bonus"]
   corona: ["corona", "covid", "mondkapje", "desinfecteren", "coronamaatregelen", "maatregelen", "winkelwagen"]

@@ -1,5 +1,5 @@
 name: restaurant-nl
-bert_mapper: ./data/restaurant-nl/model
+bert_mapper: /dbfs/FileStore/kto/restaurant-nl/pt_runs/pt_bertselect-Bert
 sbert_mapper: paraphrase-multilingual-mpnet-base-v2
 
 aspect_category_mapper: ['location', 'drinks', 'food', 'ambience', 'service']

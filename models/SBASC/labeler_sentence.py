@@ -6,7 +6,6 @@ from sklearn.metrics import classification_report
 from transformers import AutoTokenizer, BertModel
 from tqdm import trange
 import os
-import pandas as pd
 
 def load_training_data(file_path):
     sentences = []
@@ -65,10 +64,10 @@ class Labeler:
             seeds_len.append(len(polarity_seeds[pol]) + 1)
 
         # Load and encode the seeds and train set
-        self.sentences = load_training_data(f'{self.root_path}/train.txt')[:6000]
+        self.sentences = load_training_data(f'{self.root_path}/train.txt')
 
         # Load different embeddings for ablation study
-        if self.cfg.ablation == 'WithoutSBERT':
+        if self.cfg.ablation.name == 'WithoutSBERT':
             seed_embeddings, embeddings = self.__bert_embedder(load, seeds)
         else:
             seed_embeddings, embeddings = self.__sbert_embedder(load, seeds)
@@ -103,11 +102,16 @@ class Labeler:
         # labels = np.r_[labels, np.apply_along_axis(select_percentiles, axis=0, arr=labels).squeeze((0)), np.apply_along_axis(select_percentiles_pol, axis=0, arr=labels).squeeze((0))]
         #
         # # No conflict (avoid multi-class sentences)
-        # labels = np.transpose(labels[:, (labels[1, :] >= self.cat_threshold) & ((labels[3, :] >= labels[6, :]))])
+        # labels = np.transpose(labels[:, ((labels[1, :] >= labels[5, :])) & ((labels[3, :] >= labels[6, :]))])
 
-        labels = np.transpose(labels[:,
-                              (((labels[2, :] == 1) & (labels[1, :] >= self.cat_threshold)) | ((labels[2, :] == 0) & (labels[1, :] >= (self.cat_threshold - 0.1)))) &
-                              (((labels[2, :] == 1) & (labels[3, :] >= self.pol_threshold)) | ((labels[2, :] == 0) & (labels[3, :] >= (self.pol_threshold - 0.1))))])
+
+
+        if self.domain == 'restaurant-nl':
+            labels = np.transpose(labels[:,
+                        (((labels[2, :] == 1) & (labels[1, :] >= self.cat_threshold)) | ((labels[2, :] == 0) & (labels[1, :] >= (self.cat_threshold - 0.1)))) &
+                        (((labels[2, :] == 1) & (labels[3, :] >= self.pol_threshold)) | ((labels[2, :] == 0) & (labels[3, :] >= (self.pol_threshold - 0.1))))])
+        else:
+            labels = np.transpose(labels[:, (labels[1, :] >= self.cat_threshold) & (labels[3, :] >= self.pol_threshold)])
 
         nf = open(f'{self.root_path}/label-sentences.txt', 'w', encoding="utf8")
         cnt = {}

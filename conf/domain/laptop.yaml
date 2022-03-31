@@ -18,14 +18,19 @@ sentiment_seed_mapper:
         positive: ["good", "great", 'nice', "excellent", "perfect"]
         negative: ["bad", "terrible", "horrible", "disappointed ", "awful"]
 
-validation_data_size: 150
+validation_data_size: 100
 hyper_validation_size: 0.8
 
 cat_threshold: 0.5
 pol_threshold: 0.3
 
+# CASC specific parameters
 N: 9
+M: 150
+aspect_weights: [34, 42, 59, 38, 47, 35, 20, 32]
+sentiment_weights: [157, 150]
 
+# General hyper-parameters
 params:
         learning_rate: 1e-6
         beta1: 0.99

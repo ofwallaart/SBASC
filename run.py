@@ -1,19 +1,33 @@
+# Script to run the models with specified configuration.
+
 import pandas as pd
-from hydra import compose, initialize
+import hydra
+from omegaconf import DictConfig
 import os
 import json
 import time
 
+from models.BERT_baseline.main import BertBaseline
 from models.SBASC.main import SBASC
 from models.WBASC.main import WBASC
+from models.CASC.main import CASC
 
 
 def store_run_results(results, path, model_name, ablation):
+    """
+    Function that stores the results of a model run in a JSON file and appends key metrics to a table
+    :param results: result output from the model
+    :param path: path to results directory
+    :param model_name: name of the model used
+    :param ablation: the ablation used when training the model (will be 'None' if the full model is used)
+    """
     date = time.strftime("%Y%m%d_%H%M%S")
 
+    # Create the folder if it does not exist
     if not os.path.exists(f"{path}/{model_name}/"):
         os.makedirs(f"{path}/{model_name}")
 
+    # Create a json object where we store a classification report as well as raw predictions
     json_object = json.dumps({
         'polarity': results[0],
         'aspect': results[1],
@@ -23,6 +37,7 @@ def store_run_results(results, path, model_name, ablation):
     with open(f"{path}/{model_name}/run_{date}_{ablation}.json", "w") as outfile:
         outfile.write(json_object)
 
+    # Start the CSV results writing process
     df_output_path = f"{path}/{model_name}/results.csv"
 
     d = {
@@ -35,9 +50,11 @@ def store_run_results(results, path, model_name, ablation):
       'f1-score': [results[0]['macro avg']['f1-score'], results[1]['macro avg']['f1-score']]
     }
 
+    # Create the dataframe
     df_new = pd.DataFrame(data=d)
     df_new['timestamp'] = pd.to_datetime(df_new['timestamp'], format='%Y%m%d_%H%M%S')
 
+    # Create a new results file if it does not exist, otherwise append to the existing file
     if os.path.exists(df_output_path):
       df_old = pd.read_csv(df_output_path, index_col=0)
       pd.concat([df_old, df_new]).reset_index(drop=True).to_csv(df_output_path, mode='w')
@@ -45,10 +62,18 @@ def store_run_results(results, path, model_name, ablation):
       df_new.to_csv(df_output_path, mode='w')
 
 
-if __name__ == "__main__":
-    with initialize(config_path="conf"):
-        cfg = compose("config.yaml", overrides=['domain=restaurantnl', 'model=WBASC', 'ablation=woSBERT'])
-        # Run SBASC
-        results = WBASC(cfg).labeler(load=True)
+# default: domain=restaurant3 model=SBASC ablation=None]
+@hydra.main(config_path="conf", config_name="config")
+def my_app(cfg: DictConfig) -> None:
+    # Run SBASC/CASC/WBASC
+    if cfg.model.name == 'CASC':
+        results = CASC(cfg)(load=cfg.load)
+    elif cfg.model.name == 'WBASC':
+        results = WBASC(cfg)(load=cfg.load)
+    else:
+        results = SBASC(cfg)(load=cfg.load)
+    store_run_results(results, cfg.result_path_mapper, cfg.model.name, cfg.ablation.name)
 
-        # store_run_results(results, cfg.result_path_mapper, cfg.model.name, cfg.ablation.name)
+
+if __name__ == "__main__":
+    my_app()

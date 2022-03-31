@@ -1,3 +1,5 @@
+# Script to run hyperparameter optimization for the models.
+
 import pickle
 import time
 import os
@@ -5,12 +7,15 @@ import json
 from bson import json_util
 from functools import partial
 from hyperopt import hp, fmin, tpe, STATUS_OK, Trials
-from hydra import compose, initialize
+import hydra
+from omegaconf import DictConfig
 
 from models.BERT_baseline.main import BertBaseline
 from models.SBASC.main import SBASC
 from models.WBASC.main import WBASC
+from models.CASC.main import CASC
 
+# Define hyperparameter spaces for each model
 modelSpace = {
     'SBASC': [
         hp.choice('learning_rate', [1e-6, 1e-5, 1e-4, 5e-3, 1e-3, 5e-2, 1e-2, 0.02, 0.05, 0.1]),
@@ -24,9 +29,15 @@ modelSpace = {
         hp.choice('learning_rate', [1e-6, 1e-5, 1e-4, 5e-3, 1e-3, 5e-2, 1e-2, 0.02, 0.05, 0.1]),
         hp.choice('beta1', [0.8, 0.9, 0.95, 0.97, 0.99]),
         hp.choice('beta2', [0.92, 0.95, 0.97, 0.99, 0.999]),
-        hp.choice('batch_size', [12]), #24, 36, 48, 60
+        hp.choice('batch_size', [12, 24, 36, 48, 60]),
         hp.choice('gamma1', [0, 0.5, 1, 2, 3, 4]),
         hp.choice('gamma2', [0, 0.5, 1, 2, 3, 4]),
+    ],
+    'CASC': [
+        hp.choice('learning_rate', [1e-6, 1e-5, 1e-4, 5e-3, 1e-3, 5e-2, 1e-2, 0.02, 0.05, 0.1]),
+        hp.choice('beta1', [0.8, 0.9, 0.95, 0.97, 0.99]),
+        hp.choice('beta2', [0.92, 0.95, 0.97, 0.99, 0.999]),
+        hp.choice('batch_size', [12, 24, 36, 48, 60]),
     ],
     'BertBaseline': [
         hp.choice('learning_rate', [1e-6, 1e-5, 1e-4, 5e-3, 1e-3, 5e-2, 1e-2, 0.02, 0.05, 0.1]),
@@ -75,9 +86,16 @@ def save_json_result(file_name, model_name, result, result_path):
 
 
 def run_trials(models, cfg, max_evals = 30):
+    """
+    Function to run a number of hyperparameter trials
+    :param models: list of models we want to perform hyperparameter tuning on
+    :param cfg: configuration file
+    :param max_evals: maximum number of new evaluation trials we want to perform
+    """
     for model in models:
         print(f"Run a trial for: {model.name}")
 
+        # Resume training if we already did some optimization before
         print("Attempt to resume a past training if it exists:")
         try:
             # https://github.com/hyperopt/hyperopt/issues/267
@@ -90,12 +108,13 @@ def run_trials(models, cfg, max_evals = 30):
             print(f"Starting from scratch: {max_evals} new trials.")
 
         fmin_objective = partial(objective, model=model)
-        best = fmin(fmin_objective, # lambda x: x ** 2,
-                    space=modelSpace[model.name], # hp.uniform('x', -10, 10),
+        best = fmin(fmin_objective,
+                    space=modelSpace[model.name],
                     algo=tpe.suggest,
                     max_evals=max_evals,
                     trials=trials)
 
+        # Store results
         if not os.path.exists(f"{cfg.result_path_mapper}/{model.name}/"):
             os.makedirs(f"{cfg.result_path_mapper}/{model.name}")
         pickle.dump(trials, open(f"{cfg.result_path_mapper}/{model.name}/results.pkl", "wb"))
@@ -104,8 +123,18 @@ def run_trials(models, cfg, max_evals = 30):
         print(best)
 
 
-if __name__ == '__main__':
-    with initialize(config_path="conf"):
-        cfg = compose("config.yaml", overrides=['domain=supermarket', 'model=SBASC'])
+# default: domain=restaurant3 model=SBASC ablation=None]
+@hydra.main(config_path="conf", config_name="config")
+def my_app(cfg: DictConfig) -> None:
+    # Run SBASC/CASC/WBASC
+    if cfg.model.name == 'CASC':
+        models = [CASC(cfg)]
+    elif cfg.model.name == 'WBASC':
+        models = [WBASC(cfg)]
+    else:
         models = [SBASC(cfg)]
-        run_trials(models, cfg, 50)
+    run_trials(models, cfg, 50)
+
+
+if __name__ == '__main__':
+    my_app()

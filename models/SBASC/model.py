@@ -1,3 +1,7 @@
+# model to run SBASC model.
+
+from abc import ABC
+
 from torch import nn
 import torch
 import torch.nn.functional as F
@@ -5,8 +9,15 @@ from torch.autograd import Variable
 from transformers import BertModel
 
 
-class FocalLoss(nn.Module):
+class FocalLoss(nn.Module, ABC):
     def __init__(self, gamma=0, alpha=None, size_average=True):
+        """
+        Initialize a Focal loss function introduced by Lin et al.
+        https://doi.ieeecomputersociety.org/10.1109/TPAMI.2018.2858826
+        :param gamma: the focussing parameter
+        :param alpha: weighting factor
+        :param size_average: whether to use averaging or sum
+        """
         super(FocalLoss, self).__init__()
         self.gamma = gamma
         self.alpha = alpha
@@ -39,8 +50,16 @@ class FocalLoss(nn.Module):
             return loss.sum()
 
 
-class BERTLinear(nn.Module):
+class BERTLinear(nn.Module, ABC):
     def __init__(self, bert_type, num_cat, num_pol, gamma1=3, gamma2=3):
+        """
+        A torch model using BERT like neural-network structure for predicting joint sentiment and aspect category
+        :param bert_type: BERT model to use can be from huggingface or path
+        :param num_cat: total number of aspect categories
+        :param num_pol: total number of polarities
+        :param gamma1: focal loss gamma parameter for aspect loss
+        :param gamma2: focal loss gamma parameter for sentiment loss
+        """
         super().__init__()
         self.bert = BertModel.from_pretrained(
             bert_type, output_hidden_states=True)
@@ -50,10 +69,6 @@ class BERTLinear(nn.Module):
         self.num_pol = num_pol
         self.gamma1 = gamma1
         self.gamma2 = gamma2
-
-    def set_weigths(self, aspect_weights, sentiment_weights):
-        self.aspect_weights = aspect_weights
-        self.sentiment_weights = sentiment_weights
 
     def forward(self, labels_cat, labels_pol, **kwargs):
         outputs = self.bert(**kwargs)

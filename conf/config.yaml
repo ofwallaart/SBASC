@@ -1,5 +1,6 @@
 device: cuda
 epochs: 15
+load: false
 defaults:
   - _self_
   - domain: restaurant3
@@ -10,3 +11,8 @@ defaults:
 
 path_mapper: ${data_path}${domain.name}
 result_path_mapper: ${result_path}${domain.name}
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .

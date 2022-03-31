@@ -1,7 +1,6 @@
 import math
 import time
 from abc import ABC
-from hydra import compose, initialize
 
 from sklearn.metrics import classification_report
 from transformers import AutoTokenizer, get_linear_schedule_with_warmup

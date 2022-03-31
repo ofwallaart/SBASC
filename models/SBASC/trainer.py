@@ -1,3 +1,5 @@
+# implementation to train SBASC model.
+
 from transformers import AutoTokenizer
 from models.SBASC.model import BERTLinear
 import torch
@@ -14,6 +16,16 @@ import math
 
 class Trainer:
     def __init__(self, cfg, learning_rate, beta1, beta2, batch_size, gamma1, gamma2):
+        """
+        Initialize a trainer object for training the neural network algorithm
+        :param cfg: configuration file
+        :param learning_rate: learning rate
+        :param beta1: beta1 parameter for ADAM optimizer
+        :param beta2: beta2 parameter for ADAM optimizer
+        :param batch_size: batch size
+        :param gamma1: focal loss gamma parameter for aspect loss
+        :param gamma2: focal loss gamma parameter for sentiment loss
+        """
         self.domain = cfg.domain.name
         self.bert_type = cfg.domain.bert_mapper
         self.device = cfg.device
@@ -27,6 +39,7 @@ class Trainer:
         categories = cfg.domain.aspect_category_mapper
         polarities = cfg.domain.sentiment_category_mapper
 
+        # Initialize the bert model and ADAM optimizer
         self.model = BERTLinear(self.bert_type, len(
             categories), len(polarities), gamma1, gamma2).to(self.device)
         self.optimizer = optim.Adam(self.model.parameters(), lr=learning_rate, betas=(beta1, beta2))
@@ -49,6 +62,13 @@ class Trainer:
         self.inv_polarity_dict = inv_polarity_dict
 
     def load_training_data(self, file='label-sentences.txt'):
+        """
+        Loads and encodes annotated data file
+        :param file: location of the labeled sentences text file
+        :return: tensor dataset with encoded sentences and labels
+        """
+
+        # Read the file
         print(f'Loading file from {file}')
         sentences = []
         cats = []
@@ -61,6 +81,8 @@ class Trainer:
                     pols.append(self.inv_polarity_dict[pol])
                 else:
                     sentences.append(line.strip())
+
+        # Tokenize and encode the data
         encoded_dict = self.tokenizer(
             sentences,
             padding=True,
@@ -68,28 +90,41 @@ class Trainer:
             max_length=128,
             return_attention_mask=True,
             truncation=True)
+
+        # Make label lists
         labels_cat = torch.tensor(cats)
         labels_pol = torch.tensor(pols)
+
+        # Make tensor dataset
         dataset = TensorDataset(
             labels_cat, labels_pol, encoded_dict['input_ids'], encoded_dict['token_type_ids'],
             encoded_dict['attention_mask'])
         return dataset
 
     def set_seed(self, value):
+        """
+        Set seed for reproduction
+        :param value: seed starting value
+        """
         random.seed(value)
         np.random.seed(value)
         torch.manual_seed(value)
         torch.cuda.manual_seed_all(value)
 
     def train_model(self, dataset, epochs=None, hyper=False):
-        """Train the model.
+        """
+        Train the model.
+        :param dataset: Tensor dataset used for training
+        :param epochs: number of epochs to run
+        :param hyper: are we running the model for hyperparameter optimization
+        :return: validation loss and accuracy for the trained model on the val set
             """
         self.set_seed(0)
 
         if epochs is None:
             epochs = self.epochs
 
-        # Prepare dataset
+        # Prepare the dataset (split in train and validation)
         if hyper:
             data_size = math.floor(len(dataset) * self.hyper_validation_size)
             train_data, val_data = torch.utils.data.random_split(
@@ -102,7 +137,6 @@ class Trainer:
 
         model = self.model
         device = self.device
-
         optimizer = self.optimizer
 
         best_loss = 0
@@ -204,13 +238,26 @@ class Trainer:
         return val_loss, val_accuracy
 
     def save_model(self, name):
+        """
+        Saves a trained model
+        :param name: name of the model to which it is stored
+        """
         model = torch.load(f'{self.root_path}/model.pth')
         torch.save(model, f'{self.root_path}/{name}.pth')
 
     def load_model(self, name):
+        """
+        Loads a trained model
+        :param name: name of the model to be loaded
+        """
         self.model = torch.load(f'{self.root_path}/{name}.pth')
         
     def predict(self, sentences):
+        """
+        Run a predction for unseen sentences on the trained model
+        :param sentences: List containing sentences for which we want to make predictions
+        :return: predicted sentiment and polarity class for each sentence with logit scores
+        """
         model = self.model
         model.eval()
         device = self.device
@@ -223,6 +270,7 @@ class Trainer:
 
         with torch.no_grad():
             for input in tqdm(sentences):
+                # Create a prediction for a sentence
                 encoded_dict = self.tokenizer([input],
                                               padding=True,
                                               return_tensors='pt',
@@ -242,11 +290,16 @@ class Trainer:
 
         return predicted_aspect, predicted_polarity, torch.cat(logits_cats, 0), torch.cat(logits_pols, 0)
 
-    def evaluate(self):
+    def evaluate(self, model_name="model"):
+        """
+        Evaluate the model on a test set
+        :return: results on the model on the test set
+        """
         test_sentences = []
         test_cats = []
         test_pols = []
 
+        # Load the test set
         with open(f'{self.root_path}/test.txt', 'r', encoding="utf8") as f:
             for line in f:
                 _, cat, pol, sentence = line.strip().split('\t')
@@ -259,8 +312,9 @@ class Trainer:
         df = pd.DataFrame(columns=(
             ['sentence', 'actual category', 'predicted category', 'actual polarity', 'predicted polarity']))
 
-        model = torch.load(f'{self.root_path}/model.pth')
-        model.eval()
+        # Load a pretrained model
+        model = torch.load(f'{self.root_path}/{model_name}.pth')
+        model.eval() # Sets model to non-training
         device = self.device
 
         actual_aspect = []
@@ -272,6 +326,8 @@ class Trainer:
         iters = 0
         with torch.no_grad():
             for input, cat, pol in tqdm(zip(test_sentences, test_cats, test_pols)):
+
+                # Create a prediction for a test sentence
                 encoded_dict = self.tokenizer([input],
                                               padding=True,
                                               return_tensors='pt',
@@ -288,12 +344,16 @@ class Trainer:
                     self.aspect_dict[torch.argmax(logits_cat).item()])
                 predicted_polarity.append(
                     self.polarity_dict[torch.argmax(logits_pol).item()])
+
+                # Add prediction to dataframe
                 df.loc[iters] = [input, actual_aspect[-1], predicted_aspect[-1],
                                  actual_polarity[-1], predicted_polarity[-1]]
                 iters += 1
 
+        # Store raw prediction to csv
         df.to_csv(f'{self.root_path}/predictions.csv')
 
+        # Create and print classification reports
         predicted_pol = np.array(predicted_polarity)
         actual_pol = np.array(actual_polarity)
         print("Polarity")

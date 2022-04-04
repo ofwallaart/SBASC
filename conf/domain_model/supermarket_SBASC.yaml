@@ -19,8 +19,8 @@ domain:
     assortiment: [
       "een goed assortiment aan artikelen en veel keuze",
       "breed aanbod aan producten",
-      "goed assortiemnt",
-      "ik zou graag meer biologisch vers aanbod willen zien",
+      "goed assortiment",
+      "meer producten in de schappen",
       "albert heijn heeft veel vegan en bio mogelijkheden in hun assortient" ]
     beschikbaarheid: [
       "beschikbaarheid van artikelen is zeer goed",
@@ -30,6 +30,7 @@ domain:
       "veel vakken leeg",
       "zorgen dat de producten op voorraad zijn",
       "komt regelmatig voor dat om 12.30 uur het brood is uitverkocht .",
+      "te vaak grijp ik mis",
       "heel vaak zijn de bonus aanbiedingen uitverkocht" ]
     corona: [
       "winkel is niet corona veilig",
@@ -91,13 +92,12 @@ domain:
       "goedkoper worden .",
       "ik sta tevaak bij de service balie om 35 % korting te krijgen of omdat de kassabon niet klopt" ]
     overig: [
-      "gezond en duurzaam assortiment maar daar in de praktijk niet veel van waar maakt",
-      "bloemen niet uitnodigend om te kopen",
-      "bezorgen via jumbo werkt beter",
+      "zou fijn zijn als jullie ook producten kunnen bezorgen",
       "reeds diverse malen aangegeven , maar er verandert niets",
       "reden is bekend , al vele malen opgegeven",
       "ik doe geen aanbevelingen",
-      "zie mijn antwoorden in eerdere onderzoeken .",
+      "zie mijn vorige antwoorden",
+      "die vraag heb ik al te vaak beantwoord",
       "reageren op mijn eerdere opmerkingen" ]
 
   sentiment_seed_mapper:
@@ -106,12 +106,12 @@ domain:
       "schone , ruime winkel met vriendelijk en behulpzaam personeel",
       'assortiment en personeel zijn uitstekend .',
       "goed winkel met een excellent medewerkers .",
-      "ruim assortiment"]
+      "ruim en goed assortiment"]
     negative: [
       "deze ah winkel onderscheidt zicht niet t.o.v . jumbo",
       "rommelig en slecht assortiment",
-      "slechte groenten",
       "onvriendelijk personeel",
+      "te klein aanbod aan producten",
       "ik ben teleurgesteld over de aanlevering van de voorraden ",
       "producten niet altijd beschikbaar , vakkenvullers vreselijk in de weg en onvriendelijk , fruit/groente niet altijd echt vers en fris ."]
 
@@ -119,6 +119,6 @@ domain:
     learning_rate: 1e-6
     beta1: 0.97
     beta2: 0.99
-    batch_size: 48
-    gamma1: 4
-    gamma2: 4
+    batch_size: 12
+    gamma1: 2
+    gamma2: 2

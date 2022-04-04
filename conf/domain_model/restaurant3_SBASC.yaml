@@ -53,9 +53,9 @@ domain:
     ]
 
     params:
-      batch_size: 24
+      batch_size: 12
       learning_rate: 1e-6
-      beta1: 0.97
-      beta2: 0.999
-      gamma1: 3
-      gamma2: 3
+      beta1: 0.9
+      beta2: 0.95
+      gamma1: 4
+      gamma2: 4

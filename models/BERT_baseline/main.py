@@ -1,7 +1,6 @@
 import math
 import time
 from abc import ABC
-from hydra import compose, initialize
 
 from sklearn.metrics import classification_report
 from transformers import AutoTokenizer, get_linear_schedule_with_warmup
@@ -75,8 +74,8 @@ class BertBaseline:
     def __init__(self, cfg):
         self.cfg = cfg
         self.domain = cfg.domain
-        self.root_path = cfg.domain.path_mapper
-        self.bert_type = 'bert-base-uncased'
+        self.root_path = cfg.path_mapper
+        self.bert_type = 'GroNLP/bert-base-dutch-cased'
         self.categories = cfg.domain.aspect_category_mapper
         self.polarities = cfg.domain.sentiment_category_mapper
         self.device = cfg.device
@@ -86,6 +85,15 @@ class BertBaseline:
         self.scheduler = None
         self.batch_size = cfg.domain.params.batch_size
         self.name = 'BertBaseline'
+        
+    def __call__(self, cats):
+        cat_dataset, pol_dataset = self.load_training_data()
+        if cats=='polarities':
+          self.train_model(pol_dataset, epochs=4, cats=cats)
+        else: 
+          self.train_model(cat_dataset, epochs=4, cats=cats)
+        return self.evaluate(cats)
+        
 
     def find_sentences(self, categories, seeds):
         inv_cat_dict = {}
@@ -127,7 +135,7 @@ class BertBaseline:
         pol_dataset = self.find_sentences(self.polarities, sentiment_seeds)
         return cat_dataset, pol_dataset
 
-    def initialize_model(self, dataloader, epochs=4, cats='polarities', lr=5e-5, beta1=0.9, beta2=0.999):
+    def initialize_model(self, dataloader, epochs=4, cats='categories', lr=5e-5, beta1=0.9, beta2=0.999):
         """Initialize the Bert Classifier, the optimizer and the learning rate scheduler.
         """
         if cats == 'polarities':
@@ -171,15 +179,20 @@ class BertBaseline:
         if params:
             learning_rate, beta1, beta2, batch_size = params
             self.batch_size = params[3]
+        else:
+            learning_rate = self.cfg.domain.params.learning_rate
+            batch_size = self.cfg.domain.params.batch_size
+            beta1 = self.cfg.domain.params.beta1
+            beta2 = self.cfg.domain.params.beta2
 
         # Prepare dataset
         if hyper:
-            data_size = math.floor(len(dataset) * self.cfg.hyper_validation_size)
+            data_size = math.floor(len(dataset) * self.cfg.domain.hyper_validation_size)
             train_data, val_data = torch.utils.data.random_split(
                 dataset, [data_size, len(dataset) - data_size])
         else:
             train_data, val_data = torch.utils.data.random_split(
-                dataset, [len(dataset) - self.cfg.validation_data_size, self.cfg.validation_data_size])
+                dataset, [len(dataset) - self.cfg.domain.validation_data_size, self.cfg.domain.validation_data_size])
 
         dataloader = DataLoader(train_data, batch_size=self.batch_size)
         val_dataloader = DataLoader(val_data, batch_size=self.batch_size)

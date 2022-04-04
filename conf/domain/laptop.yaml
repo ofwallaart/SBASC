@@ -1,7 +1,6 @@
 name: laptop
 bert_mapper: activebus/BERT-DK_laptop
 sbert_mapper: all-mpnet-base-v2
-path_mapper: ./data/$[domain.name]
 
 aspect_category_mapper: ['support', 'os', 'display', 'battery', 'company', 'mouse', 'software', 'keyboard']
 aspect_seed_mapper:
@@ -19,18 +18,23 @@ sentiment_seed_mapper:
         positive: ["good", "great", 'nice', "excellent", "perfect"]
         negative: ["bad", "terrible", "horrible", "disappointed ", "awful"]
 
-validation_data_size: 150
+validation_data_size: 100
 hyper_validation_size: 0.8
 
-cat_threshold: 0.7
-pol_threshold: 0.4
+cat_threshold: 0.5
+pol_threshold: 0.3
 
+# CASC specific parameters
 N: 9
+M: 150
+aspect_weights: [34, 42, 59, 38, 47, 35, 20, 32]
+sentiment_weights: [157, 150]
 
+# General hyper-parameters
 params:
-        learning_rate: 1e-5
-        beta1: 0.9
-        beta2: 0.999
-        batch_size: 24
-        gamma1: 3
-        gamma2: 3
+        learning_rate: 1e-6
+        beta1: 0.99
+        beta2: 0.97
+        batch_size: 18
+        gamma1: 4
+        gamma2: 4

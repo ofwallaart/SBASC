@@ -1,38 +1,27 @@
 import torch
 import numpy as np
 from sentence_transformers import SentenceTransformer, util
-from models.WBASC.config import *
-import re
+import os
+from tqdm import trange
 from sklearn.metrics import classification_report, confusion_matrix
-import pandas as pd
-
-def load_training_data(file_path):
-    sentences = []
-    for line in open(file_path, encoding="utf-8"):
-        split_lines = list(filter(None, re.split('; |\. |\! |\n| \?', line.lower())))
-        for split_line in split_lines:
-            sentences.append(split_line.strip())
-    return sentences
-
-
-def load_evaluate_data(path):
-    test_sentences = []
-    test_cats = []
-    test_pols = []
-
-    with open(f'{path}/test.txt', 'r', encoding="utf8") as f:
-        for line in f:
-            _, cat, pol, sentence = line.strip().split('\t')
-            cat = int(cat)
-            pol = int(pol)
-            test_cats.append(cat)
-            test_pols.append(pol)
-            test_sentences.append(sentence)
-    return test_sentences, test_cats, test_pols
+from transformers import AutoTokenizer, BertModel
+from models.SBASC.labeler_sentence import load_training_data, load_evaluate_data
 
 
 def get_rep_sentences(self, embeddings, cosine_scores_train, aspect_seed, aspect_category, embeddings_marco, N,
                       test_embeddings=None):
+    """
+    Algorithm to find representative sentences from a list of seed words
+    :param self: class object variables
+    :param embeddings: embeddings of all train sentences
+    :param cosine_scores_train: cosine scores between seed words ana train sentencens
+    :param aspect_seed: seed words per aspect category
+    :param aspect_category: all aspect categories
+    :param embeddings_marco: embeddings of all train sentences
+    :param N: hyperparameter to how many sentences we should fill the list
+    :param test_embeddings: embeddings of all test sentences
+    :return: cosine-similarities between top representing sentences and all other train/test data
+    """
     train_sentences = self.sentences
     topk_scores = []
     topk = torch.topk(cosine_scores_train, cosine_scores_train.shape[1], dim=1).indices
@@ -89,7 +78,7 @@ def get_rep_sentences(self, embeddings, cosine_scores_train, aspect_seed, aspect
             if seeds_not_in_sent[i] or t_item in final_top or len(train_sentences[t_item].split()) <= 1:
                 continue
             else:
-                if len(final_top) > N[self.domain]:
+                if len(final_top) > N:
                     break
                 final_top.append(t_item)
 
@@ -98,9 +87,6 @@ def get_rep_sentences(self, embeddings, cosine_scores_train, aspect_seed, aspect
         # Also include the average of top K sentences
         topk_embeddings = torch.cat(
             (sent_embeddings, torch.mean(sent_embeddings, dim=0).unsqueeze(0), topk_scores_indiv[idx]))
-        # topk_embeddings = torch.cat((sent_embeddings, torch.mean(sent_embeddings, dim=0).unsqueeze(0)))
-        # topk_embeddings = torch.mean(sent_embeddings, dim=0).unsqueeze(0)
-        # topk_embeddings = sent_embeddings
 
         # Compute cosine-similarities between top representing sentences and all other train/test data
         if torch.is_tensor(test_embeddings):
@@ -108,31 +94,43 @@ def get_rep_sentences(self, embeddings, cosine_scores_train, aspect_seed, aspect
         else:
             topk_scores.append(torch.max(util.cos_sim(topk_embeddings, embeddings), dim=0)[0].unsqueeze(dim=-1))
 
-            for i in final_top:
-                print(train_sentences[i])
-            print()
-
     return torch.t(torch.cat(topk_scores, 1))
 
 
 class Labeler:
     def __init__(self, cfg):
+        """
+        Create a labeler instance used for creating an annotated train set from unstructured data
+        :param cfg: configuration file
+        """
         self.domain = cfg.domain.name
         self.model = SentenceTransformer(cfg.domain.sbert_mapper, device=cfg.device)
-        self.marco_model = SentenceTransformer('msmarco-distilbert-base-v4', device=config['device'])
+        if cfg.domain.name == 'restaurantnl':
+          self.marco_model = self.model
+        else:
+          self.marco_model = SentenceTransformer('msmarco-distilbert-base-v4', device=cfg.device)
         self.cat_threshold = cfg.domain.cat_threshold
         self.pol_threshold = cfg.domain.pol_threshold
-        self.root_path = cfg.domain.path_mapper
+        self.root_path = cfg.path_mapper
         self.categories = cfg.domain.aspect_category_mapper
         self.polarities = cfg.domain.sentiment_category_mapper
         self.category_sentences = cfg.domain.aspect_seed_mapper
         self.sentiment_sentences = cfg.domain.sentiment_seed_mapper
-        self.N = cfg.model.N
+        self.N = cfg.domain.N
+        self.cfg = cfg
         self.labels = None
         self.sentences = None
 
     def __call__(self, use_two_step=True, evaluate=True, load=False):
-
+        """
+        Perform the actual sentence labeling using seed words algorithm
+        :param use_two_step: whether to use seed word finding sentences algorithm as described in the paper or to
+        directly match sentences on single words
+        :param evaluate: whether to evaluate on the test set
+        :param load: load in a pre-loaded file for the embeddings. If set to false sentences are passed through the
+        encoder
+        :return: classificaiton report and predictions for the test set from the labeling algorithm
+        """
         category_seeds = self.category_sentences
         polarity_seeds = self.sentiment_sentences
 
@@ -145,29 +143,20 @@ class Labeler:
         for pol in self.polarities:
             seeds[pol] = " ".join(polarity_seeds[pol])
 
-        seed_embeddings = self.model.encode(list(seeds.values()), convert_to_tensor=True, show_progress_bar=True)
-        seed_embeddings_marco = self.marco_model.encode(list(seeds.values()), convert_to_tensor=True,
-                                                        show_progress_bar=True)
-
         # Load and encode the train set
         self.sentences = load_training_data(f'{self.root_path}/train.txt')
 
-        if load:
-            print(f'Loading embeddings from {self.root_path}')
-            embeddings = torch.load(f'{self.root_path}/sbert_train_embeddings.pickle')[:20000]
-            embeddings_marco = torch.load(f'{self.root_path}/sbert_train_embeddings_marco.pickle')[:20000]
-            self.sentences = self.sentences[:20000]
+        # Load different embeddings for ablation study
+        if self.cfg.ablation.name == 'WithoutSBERT':
+            seed_embeddings, seed_embeddings_marco, embeddings, embeddings_marco = self.__bert_embedder(load, seeds)
         else:
-            embeddings = self.model.encode(self.sentences, convert_to_tensor=True, show_progress_bar=True)
-            embeddings_marco = self.marco_model.encode(self.sentences, convert_to_tensor=True, show_progress_bar=True)
-            print(f'Saving embeddings to {self.root_path}')
-            torch.save(embeddings, f'{self.root_path}/sbert_train_embeddings.pickle')
-            torch.save(embeddings_marco, f'{self.root_path}/sbert_train_embeddings_marco.pickle')
+            seed_embeddings, seed_embeddings_marco, embeddings, embeddings_marco = self.__sbert_embedder(load, seeds)
 
         # Compute cosine-similarities
         cosine_category_scores, cosine_polarity_scores = torch.split(
             util.cos_sim(seed_embeddings_marco, embeddings_marco), split)
 
+        # use seed word finding sentences algorithm
         if use_two_step:
             # Get top most representable sentences for each aspect
             cosine_category_scores = get_rep_sentences(self, embeddings, cosine_category_scores,
@@ -175,6 +164,7 @@ class Labeler:
             cosine_polarity_scores = get_rep_sentences(self, embeddings, cosine_polarity_scores,
                                                        polarity_seeds, self.polarities, embeddings_marco, self.N)
 
+        # Find the max and argmax for highest similar seed sentence/word
         category_argmax = torch.argmax(cosine_category_scores, dim=0).tolist()
         category_max = torch.max(cosine_category_scores, dim=0)[0].tolist()
 
@@ -186,8 +176,8 @@ class Labeler:
 
         self.labels = labels
 
-        # No conflict (avoid multi-class sentences)
-        labels = np.transpose(labels[:, (labels[1, :] >= self.cat_threshold) & (labels[3, :] >= self.pol_threshold)])
+        # Select annotated sentences that are above cossim threshold value
+        labels = np.transpose(labels[:, (labels[1, :] >= self.cat_threshold) & (labels[3, :] >= self.pol_threshold)]) 
 
         nf = open(f'{self.root_path}/label-sbert.txt', 'w', encoding="utf8")
         cnt = {}
@@ -206,17 +196,19 @@ class Labeler:
         print('Labeled data statistics:')
         print(cnt)
 
+        # Start the evaluation process
         if evaluate:
+            # Load and encode test sentences
             test_sentences, test_cats, test_pols = load_evaluate_data(self.root_path)
             test_embeddings = self.model.encode(test_sentences, convert_to_tensor=True, show_progress_bar=True)
 
             if use_two_step:
                 cosine_category_test_scores = get_rep_sentences(self, embeddings, cosine_category_scores,
                                                                 category_seeds, self.categories, embeddings_marco,
-                                                                test_embeddings, self.N)
+                                                                self.N, test_embeddings)
                 cosine_polarity_test_scores = get_rep_sentences(self, embeddings, cosine_polarity_scores,
                                                                 polarity_seeds, self.polarities, embeddings_marco,
-                                                                test_embeddings, self.N)
+                                                                self.N, test_embeddings)
             else:
                 cosine_category_test_scores, cosine_polarity_test_scores = torch.split(
                     util.cos_sim(seed_embeddings, test_embeddings), split)
@@ -226,20 +218,27 @@ class Labeler:
 
             print("Polarity")
             print(classification_report(
-                test_pols, polarity_test_argmax, target_names=sentiment_category_mapper[self.domain], digits=4
+                test_pols, polarity_test_argmax, target_names=self.polarities, digits=4
             ))
             print()
 
             print("Aspect")
             print(classification_report(
-                test_cats, category_test_argmax, target_names=aspect_category_mapper[self.domain], digits=4
+                test_cats, category_test_argmax, target_names=self.categories, digits=4
             ))
             print()
             print(confusion_matrix(test_cats, category_test_argmax))
 
-            return pd.DataFrame(data={'sentence': test_sentences, 'test_cats': test_cats, 'pred_cats': category_test_argmax, 'test_pols':test_pols, 'pred_pols':polarity_test_argmax}).sort_values(['pred_cats','test_cats'])
+            return classification_report(test_pols, polarity_test_argmax, target_names=self.polarities, digits=4, output_dict=True), \
+                   classification_report(test_cats, category_test_argmax, target_names=self.categories, digits=4, output_dict=True), \
+                   polarity_test_argmax, category_test_argmax
 
     def update_labels(self, cat_threshold, pol_threshold):
+        """
+
+        :param cat_threshold:
+        :param pol_threshold:
+        """
         labels = self.labels
         sentences = self.sentences
 
@@ -264,8 +263,91 @@ class Labeler:
         print(cnt)
 
 
+    def __bert_embedder(self, load, seeds):
+        """
+        Use BERT embedding to encode sentences by averaging single word embeddings
+        :param load: load embeddings from an already created encoding
+        :param seeds: seed sentences to be embedded
+        :return: bert embeddings for seeds and all sentences
+        """
+        tokenizer = AutoTokenizer.from_pretrained(self.cfg.domain.bert_mapper) #self.cfg.domain.bert_mapper
+        model = BertModel.from_pretrained(self.cfg.domain.bert_mapper, output_hidden_states=True).to(self.cfg.device)
+
+        batch_size = 24 # Set batch size small to prevent out of memory error
+
+        def embedder(sentence_list, device):
+            """
+            Algorithm to embed a list of sentences using BERT embeddings
+            :param sentence_list: list containing sentences to be embedded
+            :param device: device to be used for encoding (either CPU or cuda)
+            :return: embedded sentences
+            """
+            sentence_embeddings = []
+
+            for i in trange(0, len(sentence_list), batch_size):
+                encoded_dict = tokenizer(
+                    sentence_list[i:i+batch_size],
+                    padding=True,
+                    return_tensors='pt',
+                    max_length=128,
+                    return_attention_mask=True,
+                    truncation=True)
+                model.eval()
+                with torch.no_grad():
+                    outputs = model(encoded_dict['input_ids'].to(device), encoded_dict['token_type_ids'].to(device),
+                                    encoded_dict['attention_mask'].to(device))
+                # Take the eleventh layer as representation
+                x = outputs[2][11]
+                mask = encoded_dict['attention_mask'].to('cuda')  # (bsz, seq_len)
+                se = x * mask.unsqueeze(2)
+                den = mask.sum(dim=1).unsqueeze(1)
+                # Compute average of words as sentence embedding
+                sentence_embeddings.extend(se.sum(dim=1) / den)
+
+            return torch.stack(sentence_embeddings)
+
+        # Embed every seed sentences
+        seed_embeddings_bert = embedder(list(seeds.values()), self.cfg.device)
+
+        if load and os.path.isfile(f'{self.root_path}/bert_avg_train_embeddings.pickle'):
+            print(f'Loading embeddings from {self.root_path}')
+            embeddings_bert = torch.load(f'{self.root_path}/bert_avg_train_embeddings.pickle')
+        else:
+            # Embed every sentence in the train set
+            embeddings_bert = embedder(self.sentences, self.cfg.device)
+            print(f'Saving embeddings to {self.root_path}')
+            torch.save(embeddings_bert, f'{self.root_path}/bert_avg_train_embeddings.pickle')
+
+        self.sentences = self.sentences[:20000]
+        return seed_embeddings_bert[:20000], seed_embeddings_bert[:20000], embeddings_bert[:20000], embeddings_bert[:20000]
+
+    def __sbert_embedder(self, load, seeds):
+        """
+        Use Sentence-BERT embedding to encode sentences
+        :param load: load embeddings from an already created encoding
+        :param seeds: seed sentences to be embedded
+        :return: SBERT embeddings for seeds and all sentences
+        """
+        seed_embeddings = self.model.encode(list(seeds.values()), convert_to_tensor=True, show_progress_bar=True)
+        seed_embeddings_marco = self.marco_model.encode(list(seeds.values()), convert_to_tensor=True,
+                                                        show_progress_bar=True)
+
+        if load and os.path.isfile(f'{self.root_path}/sbert_train_embeddings.pickle'):
+            print(f'Loading embeddings from {self.root_path}')
+            embeddings = torch.load(f'{self.root_path}/sbert_train_embeddings.pickle')
+            embeddings_marco = torch.load(f'{self.root_path}/sbert_train_embeddings_marco.pickle')
+        else:
+            embeddings = self.model.encode(self.sentences, convert_to_tensor=True, show_progress_bar=True)
+            embeddings_marco = self.marco_model.encode(self.sentences, convert_to_tensor=True, show_progress_bar=True)
+            print(f'Saving embeddings to {self.root_path}')
+            torch.save(embeddings, f'{self.root_path}/sbert_train_embeddings.pickle')
+            torch.save(embeddings_marco, f'{self.root_path}/sbert_train_embeddings_marco.pickle')
+
+        self.sentences = self.sentences[:20000]
+        return seed_embeddings[:20000], seed_embeddings_marco[:20000], embeddings[:20000], embeddings_marco[:20000]
+
+
 if __name__ == '__main__':
     torch._set_deterministic(True)
-
     labeler = Labeler()
     df = labeler(load=True)

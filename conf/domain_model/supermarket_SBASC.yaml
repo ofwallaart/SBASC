@@ -1,0 +1,124 @@
+# @package _global_
+domain:
+  cat_threshold: 0.75
+  pol_threshold: 0.6
+
+  aspect_seed_mapper:
+    service: [
+      "met de zelfscankassa heb ik slechte ervaringen",
+      "zelfscan is erg fijn",
+      "snelle afrekenen mogelijkheid",
+      "na de verbouwing is het afrekenen echt een ergernis geworden , er zijn minder normale kassa , dus lange wachtrijen",
+      "te lange rij bij de kassa",
+      "te lange wachttijden bij de kassa",
+      "zeer onaardige oudere dame achter de servicebalie",
+      "meer gewone kassa 's openen . bij de gewone kassa staan vaak heel lange rijen",
+      "betere service bij kassa",
+      "de controle bij de zelfscan kassa vindt ik onprettig"
+    ]
+    assortiment: [
+      "een goed assortiment aan artikelen en veel keuze",
+      "breed aanbod aan producten",
+      "goed assortiment",
+      "meer producten in de schappen",
+      "albert heijn heeft veel vegan en bio mogelijkheden in hun assortient" ]
+    beschikbaarheid: [
+      "beschikbaarheid van artikelen is zeer goed",
+      "zorgen dat niet steeds veel artikelen uitverkocht zijn",
+      "voorraad beter aanvullen",
+      "bonus aanbiedingen zijn vaak niet ( meer ) voorradig",
+      "veel vakken leeg",
+      "zorgen dat de producten op voorraad zijn",
+      "komt regelmatig voor dat om 12.30 uur het brood is uitverkocht .",
+      "te vaak grijp ik mis",
+      "heel vaak zijn de bonus aanbiedingen uitverkocht" ]
+    corona: [
+      "winkel is niet corona veilig",
+      "houden zich ook uitstekend aan de covid maatregelen",
+      "mensen er op wijzen dat ze een mondkapje op moeten , dat dit mondkapje ook over de neus moet ",
+      "zorgen dat je je handen kunt schoonmaken bij de ingang",
+      "beter letten op de coronamaatregelen",
+      "hygiëne en handhaving covid maatregelen laat te wensen over",
+      "schoonmaakmiddelen voor kar prominenter aanwezig" ]
+    kwaliteit: [
+      "groente en fruit niet erg vers",
+      "de kwaliteit van fruit en groente is nogal eens niet zo best zoals bij de kersen , sperziebonen etc .",
+      "gekocht fruit is na enkele dagen rot .",
+      "alweer beschimmelde groenten",
+      "houdbaarheid beter in de gaten houden" ]
+    winkel: [
+      "fijne winkel",
+      "het is gewoon een goede winkel",
+      "ingang en buiten omgeving verbeteren ",
+      "vooral het trappenhuis van de parkeergarage",
+      "veel zwervers en afval voor de ingang",
+      "parkeergarage is heel vervelend",
+      "krappe paden , voelt niet fijn .",
+      "na de verbouwing een onmogelijke winkel geworden",
+      "te weinig ruimte",
+      "slechte winkel",
+      "ruime winkel",
+      "uitbreiden van het pand",
+      "zorgen dat de entree schoon is",
+      "muziek staat te hard" ]
+    personeel: [
+      "vriendelijk personeel",
+      "vriendelijk en behulpzaam personeel",
+      "leidinggevenden zouden wel vriendelijker mogen zijn",
+      "ik krijg altijd goede hulp bij vragen",
+      "erg fijn en vriendelijk personeel in de winkel",
+      "slecht ongeïnteresseerd personeel , te jong en vooral bezig met elkaar",
+      "vakkenvullers zijn nadrukkelijk aanwezig",
+      "personeel aanspreken op gedrag",
+      "de vakkenvullers versperren de paden",
+      "gangpaden staan vol met goederen en vakkenvullers",
+      "betere aansturing vakkenvullers zodat ze niet de klanten verjagen en rijen blokkeren",
+      "minder obstakels in de paden",
+      "minder vakkenvullers tijdens openingen" ]
+    opgeruimd: [
+      "ik vind dat de winkel rommelig is vooral bij de voormalige vleeswaren afd ",
+      "de winkel is niet netjes",
+      "erg rommelig",
+      "minder dozen in de paden",
+      "deel groentenafdeling was vies",
+      "opruimen in en rond de winkel",
+      "schone winkel",
+      "de winkel is schoon en opgeruimd",
+      "meer spiegelen",
+      "prullenbakken sneller legen" ]
+    prijzen: [
+      "betere kwaliteit prijs verhoudingen",
+      "ah is nu eenmaal duur",
+      "goedkoper worden .",
+      "ik sta tevaak bij de service balie om 35 % korting te krijgen of omdat de kassabon niet klopt" ]
+    overig: [
+      "zou fijn zijn als jullie ook producten kunnen bezorgen",
+      "reeds diverse malen aangegeven , maar er verandert niets",
+      "reden is bekend , al vele malen opgegeven",
+      "ik doe geen aanbevelingen",
+      "zie mijn vorige antwoorden",
+      "die vraag heb ik al te vaak beantwoord",
+      "reageren op mijn eerdere opmerkingen" ]
+
+  sentiment_seed_mapper:
+    positive: [
+      "over het algemeen een erg goede supermarkt",
+      "schone , ruime winkel met vriendelijk en behulpzaam personeel",
+      'assortiment en personeel zijn uitstekend .',
+      "goed winkel met een excellent medewerkers .",
+      "ruim en goed assortiment"]
+    negative: [
+      "deze ah winkel onderscheidt zicht niet t.o.v . jumbo",
+      "rommelig en slecht assortiment",
+      "onvriendelijk personeel",
+      "te klein aanbod aan producten",
+      "ik ben teleurgesteld over de aanlevering van de voorraden ",
+      "producten niet altijd beschikbaar , vakkenvullers vreselijk in de weg en onvriendelijk , fruit/groente niet altijd echt vers en fris ."]
+
+  params:
+    learning_rate: 1e-6
+    beta1: 0.97
+    beta2: 0.99
+    batch_size: 12
+    gamma1: 2
+    gamma2: 2

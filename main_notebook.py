@@ -12,8 +12,8 @@ from run import store_run_results
 
 # DBTITLE 1,Do a single run for creating labels
 with initialize(config_path="conf"):
-  cfg = compose("config.yaml", overrides=[f'domain=supermarket', 'model=SBASC', 'environment=databricks', 'ablation=none'])
-  results = SBASC(cfg)(load=False, evaluate=True)
+  cfg = compose("config.yaml", overrides=[f'domain=supermarket', 'model=WBASC', 'environment=databricks', 'ablation=none'])
+  results = WBASC(cfg)(load=False, evaluate=True)
 
 # COMMAND ----------
 
@@ -32,19 +32,23 @@ cmp.plot(ax=ax, xticks_rotation='vertical')
 
 # COMMAND ----------
 
+display(df)
+
+# COMMAND ----------
+
 # DBTITLE 1,Hyperparameter tuning
 domains = ['supermarket']
 for domain in domains:
   with initialize(config_path="conf"):
-    cfg = compose("config.yaml", overrides=[f'domain={domain}', 'model=SBASC', 'environment=databricks'])
-    models = [SBASC(cfg)]
+    cfg = compose("config.yaml", overrides=[f'domain={domain}', 'model=WBASC', 'environment=databricks'])
+    models = [WBASC(cfg)]
     run_trials(models, cfg, 40)
 
 # COMMAND ----------
 
 import pickle
 
-trials = pickle.load(open("/dbfs/FileStore/kto/results/supermarket/SBASC/results.pkl", "rb"))
+trials = pickle.load(open("/dbfs/FileStore/kto/results/supermarket/WBASC/results.pkl", "rb"))
 best = trials.best_trial['result']
 print(best)
 for i, trial in enumerate(trials.trials):
@@ -56,16 +60,16 @@ for i, trial in enumerate(trials.trials):
 
 # COMMAND ----------
 
-# DBTITLE 1,Run 5 times for creating results
+# DBTITLE 1,Run ablations for creating results
 from tqdm import trange
 
-domains = ['laptop']
-ablations = ['woDL']
+domains = ['supermarket']
+ablations = ['none','woDL', 'woDK', 'woSBERT']
 for domain in domains:
   for ablation in ablations:
       with initialize(config_path="conf"):
-        cfg = compose("config.yaml", overrides=[f'domain={domain}', 'model=SBASC', 'environment=databricks', f'ablation={ablation}'])
-        results = SBASC(cfg)(load=True, evaluate=False)
+        cfg = compose("config.yaml", overrides=[f'domain={domain}', 'model=WBASC', 'environment=databricks', f'ablation={ablation}'])
+        results = WBASC(cfg)(load=True, evaluate=False)
         store_run_results(results, cfg.result_path_mapper, cfg.model.name, cfg.ablation.name)
 
 # COMMAND ----------

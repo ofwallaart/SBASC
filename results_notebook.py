@@ -20,7 +20,7 @@ for ablation in ablations:
 
 from pyspark.sql.functions import avg, col, lit, when
 
-df = spark.read.format('csv').options(header='true', inferSchema='true').load('dbfs:/FileStore/kto/results/restaurant-3/WBASC/results.csv')
+df = spark.read.format('csv').options(header='true', inferSchema='true').load('dbfs:/FileStore/kto/results/supermarket/WBASC/results.csv')
 
 display(df.sort("ablation","type")) 
 # display(df.groupBy('type', 'ablation').agg(avg('accuracy'), avg('precision'), avg('recall'), avg('f1-score')).sort("ablation","type"))

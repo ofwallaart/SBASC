@@ -106,7 +106,7 @@ class Labeler:
 
         
         
-        if self.domain == 'restaurant-nl':
+        if self.domain in ['restaurant-nl', "supermarket"]:
             labels = np.transpose(labels[:,
                         (((labels[2, :] == 1) & (labels[1, :] >= self.cat_threshold)) | ((labels[2, :] == 0) & (labels[1, :] >= (self.cat_threshold - 0.1)))) &
                         (((labels[2, :] == 1) & (labels[3, :] >= self.pol_threshold)) | ((labels[2, :] == 0) & (labels[3, :] >= (self.pol_threshold - 0.1))))])

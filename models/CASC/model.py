@@ -53,7 +53,11 @@ class BERTLinear(nn.Module):
 
         logits_cat = self.ff_cat(se)  # (bsz, num_cat)
         logits_pol = self.ff_pol(se)  # (bsz, num_pol)
-        loss = LQLoss(self.cfg, 0.4, self.aspect_weights)(F.softmax(logits_cat, dim=-1), labels_cat)
-        loss = loss + LQLoss(self.cfg, 0.4, self.sentiment_weights)(F.softmax(logits_pol, dim=-1), labels_pol)
+        if self.cfg.ablation.name == 'WithoutFocalLoss':
+            loss = LQLoss(self.cfg, 0.4, self.aspect_weights)(F.softmax(logits_cat, dim=-1), labels_cat, self.cfg.ablation.alpha)
+            loss = loss + LQLoss(self.cfg, 0.4, self.sentiment_weights)(F.softmax(logits_pol, dim=-1), labels_pol, self.cfg.ablation.alpha)
+        else:
+            loss = LQLoss(self.cfg, 0.4, self.aspect_weights)(F.softmax(logits_cat, dim=-1), labels_cat)
+            loss = loss + LQLoss(self.cfg, 0.4, self.sentiment_weights)(F.softmax(logits_pol, dim=-1), labels_pol)
         return loss, logits_cat, logits_pol
 

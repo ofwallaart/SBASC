@@ -20,10 +20,10 @@ for ablation in ablations:
 
 from pyspark.sql.functions import avg, col, lit, when
 
-df = spark.read.format('csv').options(header='true', inferSchema='true').load('dbfs:/FileStore/kto/results/supermarket/WBASC/results.csv')
+df = spark.read.format('csv').options(header='true', inferSchema='true').load('dbfs:/FileStore/kto/results/supermarket/SBASC/results.csv')
 
-display(df.sort("ablation","type")) 
-# display(df.groupBy('type', 'ablation').agg(avg('accuracy'), avg('precision'), avg('recall'), avg('f1-score')).sort("ablation","type"))
+display(df.where(col("ablation") == 'WithoutFocalLoss').sort("ablation","timestamp", "type")) 
+# display(df.where(col("ablation") == 'none').groupBy('type', 'ablation').agg(avg('accuracy'), avg('precision'), avg('recall'), avg('f1-score')).sort("ablation","type"))
 
 # COMMAND ----------
 
@@ -91,8 +91,6 @@ with initialize(config_path="conf"):
       df[f"{model}"] = df[f"aspect_{model}"].astype(str)+ " " + df[f"sentiment_{model}"]
       df = df.drop(columns=[f"aspect_{model}", f"sentiment_{model}"])
 
-      print(json.dumps(data))
-
   df1 = pd.read_csv(f'/dbfs/FileStore/kto/{cfg.domain.name}/predictions.csv', index_col=0)
   df1[f"CASC"] = df1["predicted category"].astype(str)+ " " + df1["predicted polarity"]
   df["CASC"] = df1["CASC"]
@@ -106,3 +104,43 @@ display(df[(df['true'] != df['SBASC']) & (df['true'] != df['SBASCwoSBERT']) & (d
 
 df1 = pd.read_csv(f'/dbfs/FileStore/kto/{cfg.domain.name}/predictions.csv', index_col=0)
 display(df1)
+
+# COMMAND ----------
+
+# Zip a folder for download
+import shutil
+modelPath = "/dbfs/FileStore/kto/results"
+zipPath= "/tmp/results"
+shutil.make_archive(base_dir= modelPath, format='zip', base_name=zipPath)
+
+# COMMAND ----------
+
+blobStoragePath = "dbfs:/FileStore/kto/results"
+dbutils.fs.cp("file:" +zipPath + ".zip", blobStoragePath)
+
+# COMMAND ----------
+
+from pyspark.sql.functions import avg, col, lit, when
+
+models = ['WBASC', 'SBASC', 'CASC']
+domains = ['restaurant-3', 'restaurant-5', 'laptop', 'restaurant-nl', 'supermarket']
+
+for m, model in enumerate(models):
+  for d, domain in enumerate(domains):
+    if m ==0 and d==0:
+      df = (spark
+            .read.format('csv').options(header='true', inferSchema='true')
+            .load(f'dbfs:/FileStore/kto/results/{domain}/{model}/results.csv')
+            .withColumn('dataset', lit(domain))
+            .withColumn('model', lit(model))
+           )
+    else:
+      df = df.unionByName(spark
+            .read.format('csv').options(header='true', inferSchema='true')
+            .load(f'dbfs:/FileStore/kto/results/{domain}/{model}/results.csv')
+            .withColumn('dataset', lit(domain))
+            .withColumn('model', lit(model))
+                     )
+      
+display(df)
+

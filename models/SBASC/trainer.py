@@ -42,7 +42,7 @@ class Trainer:
 
         # Initialize the bert model and ADAM optimizer
         if cfg.ablation.name == "WithoutFocalLoss":
-            self.model = BERTCASCLinear(self.cfg, self.bert_type, len(
+            self.model = BERTCASCLinear(cfg, self.bert_type, len(
                 categories), len(polarities)).to(self.device)
         else:
             self.model = BERTLinear(self.bert_type, len(
@@ -126,7 +126,6 @@ class Trainer:
         :param hyper: are we running the model for hyperparameter optimization
         :return: validation loss and accuracy for the trained model on the val set
             """
-        self.set_seed(0)
 
         if epochs is None:
             epochs = self.epochs

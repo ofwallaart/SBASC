@@ -12,8 +12,8 @@ from run import store_run_results
 
 # DBTITLE 1,Do a single run for creating labels
 with initialize(config_path="conf"):
-  cfg = compose("config.yaml", overrides=[f'domain=supermarket', 'model=WBASC', 'environment=databricks', 'ablation=none'])
-  results = WBASC(cfg)(load=False, evaluate=True)
+  cfg = compose("config.yaml", overrides=[f'domain=restaurant3', 'model=SBASC', 'environment=databricks', 'ablation=woFLOSS'])
+  results = SBASC(cfg)(load=True, evaluate=True)
 
 # COMMAND ----------
 
@@ -37,11 +37,11 @@ display(df)
 # COMMAND ----------
 
 # DBTITLE 1,Hyperparameter tuning
-domains = ['supermarket']
+domains = ['restaurant5' , 'laptop', 'restaurantnl', 'supermarket']
 for domain in domains:
   with initialize(config_path="conf"):
     cfg = compose("config.yaml", overrides=[f'domain={domain}', 'model=WBASC', 'environment=databricks'])
-    models = [WBASC(cfg)]
+    models = [SBASC(cfg)]
     run_trials(models, cfg, 40)
 
 # COMMAND ----------
@@ -64,7 +64,21 @@ for i, trial in enumerate(trials.trials):
 from tqdm import trange
 
 domains = ['supermarket']
-ablations = ['none','woDL', 'woDK', 'woSBERT']
+ablations = ['woFLOSS']
+
+for run in range(3):
+  print(f'On run {run}')
+  for domain in domains:
+    for ablation in ablations:
+        with initialize(config_path="conf"):
+          cfg = compose("config.yaml", overrides=[f'domain={domain}', 'model=SBASC', 'environment=databricks', f'ablation={ablation}'])
+          results = SBASC(cfg)(load=True, evaluate=True)
+          store_run_results(results, cfg.result_path_mapper, cfg.model.name, cfg.ablation.name)
+
+# COMMAND ----------
+
+domains = ['restaurant3','restaurant5' , 'laptop', 'restaurantnl', 'supermarket']
+ablations = ['none']
 for domain in domains:
   for ablation in ablations:
       with initialize(config_path="conf"):

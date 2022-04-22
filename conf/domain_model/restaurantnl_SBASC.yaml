@@ -16,7 +16,7 @@ domain:
           "de wijnen die worden geschonken zijn erg lekker",
           "bier smaakt er altijd goed",
           "de cocktails kwamen pas erg laat maar zijn wel lekker",
-          "de sake was goed op temperatuur"]
+        ]
         food: [
           "de smaken zijn geweldig soms wel wat pittig",
           "alle gerechten waren erg duur",
@@ -43,26 +43,13 @@ domain:
       "je zit er gezellig en het personeel is heel vriendelijk en gastvrij",
       "leuke ontvangst , goede service , goede variatie in keuze , voor elk wat wils .",
       "ik vond alles aan de restaurant heel goed",
-      "heerlijk gegeten . vriendelijke bediening . een aanrader !",
-      "het eten komt snel op tafel",
-      "erg schoon, goed personeel , lekker eten",
-      "erg lekker gegeten voor een eerlijke prijs"
     ]
     negative: [
       "helaas hebben we anderhalf uur moeten wachten op ons eten . het personeel reageerde laconiek . eten was ok , maar niet bijzonder .",
       "de snelheid waarmee het eten geserveerd wordt laat ook te wensen over",
       "het zitcomfort van de banken is gewoon slecht",
       "verschrikkelijk , te duur eten",
-      "de bediening was dramatisch",
-      "slecht gegeten , hapjes die wij bestelden kregen wij niet . slechte bediening en op het laatst wilden wij nog 1 drankje bestellen , maar helaas ze gingen sluiten .",
-      "tafel was vrij vies en leek al een tijd niet schoongemaakt .",
-      "het eten was te koud en te klef",
-      "service was langzaam",
-      "gerechten duurden veel te lang .",
-      "het was niet bijzonder .",
-      "het eten was prima , maar de eigenaar deed niets tegen gasten die overlast gaven .",
-      "bijna alles was op",
-      "kleine porties , half rauw vlees , kortom : waardeloos ."
+      "de bediening was dramatisch"
     ]
 
   params:

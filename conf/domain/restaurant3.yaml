@@ -4,9 +4,9 @@ sbert_mapper: all-mpnet-base-v2
 
 aspect_category_mapper: ['food', 'place', 'service']
 aspect_seed_mapper:
-        food: ["food", "spicy", "sushi", "pizza", "taste", "delicious", "bland", "drinks", "flavourful"]
-        place: ["ambience", "atmosphere", "seating", "surroundings", "environment", "location", "decoration", "spacious", "comfortable", "place"]
-        service: ["tips", "manager", "waitress", "rude", "forgetful", "host", "server", "service", "quick", "staff"]
+        food: ["food", "spicy", "sushi", "pizza", "taste", "delicious"]
+        place: ["ambience", "atmosphere", "seating", "surroundings", "environment", "location"]
+        service: ["tips", "manager", "waitress", "rude", "staff"]
 
 sentiment_category_mapper: ['negative', 'positive']
 sentiment_seed_mapper:

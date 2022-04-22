@@ -8,7 +8,7 @@ aspect_seed_mapper:
         'os': ["os", "windows", "ios", "mac", "system", "linux"]
         'display': ["display", "screen", "led", "monitor", "resolution"]
         'battery': ["battery", "life", "charge", "last", "power"]
-        'company': ["company", "product", "hp", "toshiba", "dell", "apple", "lenovo"]
+        'company': ["company", "hp", "toshiba", "dell", "lenovo"]
         'mouse': ["mouse", "touch", "track", "button", "pad"]
         'software': ["software", "programs", "applications", "itunes", "photo"]
         'keyboard': ["keyboard", "key", "space", "type", "keys"]

@@ -34,10 +34,6 @@ domain:
       "friendly staff and warm ambiance",
       "we also ordered pita and hummus and that was delicious",
       "i really loved everything about it",
-      "decently priced food and fast delivery",
-      "fast delivery and terrific food",
-      "very clean , great staff , good food",
-      "this restaurant is clean with super friendly staff and awesome food"
     ]
     negative: [
       "i 'm sad to say i ca n't find anything positive to say about the experience",
@@ -45,11 +41,6 @@ domain:
       "any day of the week it 's bad",
       "horrible food . wretched service . vastly overpriced . i would rather starve than eat here again .",
       "horrible , over priced food",
-      "the service was awful",
-      "food was awful , group of 16 and none of us were please , everything was either cold or tasteless , i almost believe it was from the awl-mart frozen section",
-      "and our table was sticky and smelled of beer",
-      "not the best experience with the foods . our hot foods were served cold",
-      "service was slow"
     ]
 
     params:

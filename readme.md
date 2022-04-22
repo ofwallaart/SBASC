@@ -59,6 +59,7 @@ python run.py domain=restaurant3 model=CASC ablation=none
 The code contains the following main files that can be run: `run.py`, `run_hyperparameter.py`
 - `run.py`: Code to run a single train and test run of the specified model. Configuration can be done in the command line. Results are stored in `results\DOMAIN\MODEL\`
 - `run_hyperparameter.py`: Code to run a hyperparameter trial of the specified model. Configuration can be done in the command line. Optimal hyperparameters are stored in `results\MODEL\results.pkl`
+- - `run_helpers.py`: Code to run non-essential code, but relevant for result generation. Code contains a function to generate a p-value table comparing different methods using a single sided t-test and a function that graphs different loss function to compare their behaviour.
 - `models\BERT_baseline\main.py`: PyTorch implementation of a BERT baseline model. It uses a pre-trained BERT language model (12-layer, 768-hidden, uncased), with a classification layer on top.
 - `models\CASC\main.py`: PyTorch implementation of weakly supervised model using post-trained DK-BERT and a small set of seed words for labeled data preparation. Next a neural network using labeled data is used for aspect and sentiment prediction. Code is implemented from [Kumar et al.](https://github.com/Raghu150999/UnsupervisedABSA)
 - `models\SBASC\main.py`: PyTorch implementation of seed Sentence Based Aspect and Sentiment Classification model framework using the seed sentence labeler
@@ -67,6 +68,8 @@ The code contains the following main files that can be run: `run.py`, `run_hyper
   - `models\SBASC\model.py`: BERT based neural network model using focal loss for jointly predicting aspect category and sentiment.
 - `models\WBASC\main.py`: PyTorch implementation of seed Word Based Aspect and Sentiment Classification model framework using the seed word sentence labeler
   - `models\SBASC\labeler.py`: The seed word labeling algorithm for the WBASC model
+- `models\CosSim_baselines\cos_sim.py`: Baseline implementation using a word2vec algorithm using seed words
+  - `models\CosSim_baselines\cos_sim_sentence.py`: Baseline implementation using a word2vec algorithm where full seed sentences are averaged and compared
 
 The code contains the following main directories:
 - `conf\`: Location for the Hydra configuration `.yaml` files.

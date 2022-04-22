@@ -2,6 +2,7 @@
 
 from transformers import AutoTokenizer
 from models.SBASC.model import BERTLinear
+from models.CASC.model import BERTLinear as BERTCASCLinear
 import torch
 from tqdm import tqdm
 from torch.utils.data import DataLoader, TensorDataset
@@ -40,9 +41,15 @@ class Trainer:
         polarities = cfg.domain.sentiment_category_mapper
 
         # Initialize the bert model and ADAM optimizer
-        self.model = BERTLinear(self.bert_type, len(
-            categories), len(polarities), gamma1, gamma2).to(self.device)
-        self.optimizer = optim.Adam(self.model.parameters(), lr=learning_rate, betas=(beta1, beta2))
+        if cfg.ablation.name == "WithoutFocalLoss":
+            self.model = BERTCASCLinear(cfg, self.bert_type, len(
+                categories), len(polarities)).to(self.device)
+        else:
+            self.model = BERTLinear(self.bert_type, len(
+                categories), len(polarities), gamma1, gamma2).to(self.device)
+
+        self.optimizer = optim.AdamW(self.model.parameters(), lr=learning_rate, betas=(beta1, beta2))
+        # self.optimizer = optim.Adam(self.model.parameters(), lr=learning_rate, betas=(beta1, beta2))
 
         aspect_dict = {}
         inv_aspect_dict = {}
@@ -119,7 +126,6 @@ class Trainer:
         :param hyper: are we running the model for hyperparameter optimization
         :return: validation loss and accuracy for the trained model on the val set
             """
-        self.set_seed(0)
 
         if epochs is None:
             epochs = self.epochs

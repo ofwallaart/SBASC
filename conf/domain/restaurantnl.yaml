@@ -21,7 +21,11 @@ hyper_validation_size: 0.8
 cat_threshold: 0.7
 pol_threshold: 0.4
 
+# CASC specific parameters
 N: 9
+M: 150
+aspect_weights: [2, 10, 125, 29, 84]
+sentiment_weights: [115, 135]
 
 params:
         learning_rate: 1e-5

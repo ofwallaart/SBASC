@@ -170,7 +170,6 @@ class BertBaseline:
     def train_model(self, dataset, params=None, epochs=None, cats='categories', hyper=False):
         """Train the BertClassifier model.
             """
-        self.set_seed(0)
         device = self.device
 
         if epochs is None:

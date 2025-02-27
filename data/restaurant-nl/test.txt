@@ -1,0 +1,250 @@
+0	2	1	wij hebben hier heel lekker gegeten .
+1	2	1	er was namelijk een menu ofwel 3 gangen ofwel 4 gangen met telkens per gang 3 tot 4 keuzes .
+2	2	1	ik vind dit ruim voldoende , zeker omdat het restaurant bekend staat om zijn wagyu runderen en mangalica varkens , dan wordt er meestal voor deze opties gekozen .
+3	2	1	indien men geen vlees liefhebber is , is er ook telkens een vis optie .
+4	4	0	bediening : je zaak laten runnen door onervaren jobstudenten is nooit een goede zaak .
+5	4	0	duidelijk onderbemand , veel te lang wachten op water , brood , wijnkaart ...
+6	2	0	eten : rare combinaties , hapje vooraf stimuleert de eetlust niet ( te pikant en te complex ) .
+7	2	0	voorgerecht was niet verfijnd , gefrituurde pijlinktvis die overheerst werd door een te vet beslag .
+8	3	1	gezellig tafelen in een bistro met aangename sfeer .
+9	2	1	de royal all inclusief menu genomen aan een democratische prijs van 42€ .
+10	2	1	beperkte kaart maar uiterst lekker !
+11	2	1	we namen een voorgerecht , hoofdgerecht en nagerecht en alles was perfect !
+12	1	1	teaser ( warm drankje met maltesers ) zeer lekker .
+13	2	1	opnieuw werden we culinair in de watten gelegd en konden we genieten van ontzettend heerlijke gerechten die als kunstwerkjes gepresenteerd werden .
+14	2	1	fantastische smaakbommen met verrassende structuren en combinaties ... elk gerecht is een kunstwerk .
+15	2	1	pure klasse !
+16	3	1	ik hou ook heel erg van het vleugje humor dat je overal kan ontdekken .
+17	3	1	interieur en sfeer in dit restaurant zijn prima .
+18	4	0	we vonden hier niet de typische thaise vriendelijkheid en hartelijkheid terug .
+19	2	0	op basis van wat we voorgeschoteld kregen zouden we niet graag de volle prijs betalen .
+20	2	1	het was zeker vers maar de meeste gerechten waren eerder flauwtjes .
+21	2	0	het eten op zich was erg lekker maar we hadden het gevoel dat de actie aan -bij benadering- de helft van de prijs ook maar de helft van de normale portie inhield .
+22	2	0	ik ben geen grote eter maar het was gewoon lachwekkend weinig , ik denk dat er in totaal nog geen 100g vlees/kip/scampi in het geheel terug te vinden was .
+23	2	0	en dan een klein soepkommetje rijst erbij , dat ook voor ons beiden bleek te zijn .
+24	2	1	het was weer heel erg lekker .
+25	2	1	maar ook ( alleen als je gereserveerd hebt ) heel erg goed , lekker , uitgebreid ontbijt .
+26	4	1	zeer vriendelijk attent personeel .
+27	3	1	gezellige sfeer
+28	4	1	ontzettend gastvrij personeel
+29	3	1	je voelt je er echt thuis .
+30	2	1	heerlijk .
+31	2	1	het is altijd weer een feest om hier te eten .
+32	2	1	vooral de zeevruchtensalade kon ons erg bekoren .
+33	3	0	enige minpuntje vond ik het rumoerige kader .
+34	3	0	er zat een heel luidruchtige groep naast ons en het interieur gaf onvoldoende demping waardoor ik we elkaar soms met moeite konden verstaan .
+35	2	0	bestellen een soepje met groenten : precies een slechte minestrone met zwevende groentenblokjes in een wazig vocht .
+36	4	0	en dan wachten en wachten en nog eens wachten en ondertussen is je drinken reeds op en niemand heeft dat gezien .
+37	2	0	een echte teleurstelling qua kruiding en smaak .
+38	2	0	we kregen wel genoeg , dat wel , maar het was niet echt heel smaakvol .
+39	4	1	vriendelijke bediening , de uitbater is steeds bereidt om een praatje te maken zelfs als het druk is .
+40	4	1	de bediening is zeer vlot .
+41	2	1	de tapas vooraf waren alvast een voltreffer .
+42	4	1	buitengewone ontvangst door een lieve gastvrouw .
+43	3	1	het is een klein maar heel gezellig restaurant , je moet absoluut reserveren .
+44	2	0	scampi in een dikke bloemige saus geen smaak .
+45	2	0	steak bearnaise : saus was te dik en te koud om over het vlees te gieten .
+46	2	0	walgelijk .
+47	2	0	frietjes hadden een rare bijsmaak .
+48	2	0	vriendin had een stoofpotjes van kabeljauw daar kon je een vork in recht zetten .
+49	2	0	110 euro betaald voor wat je nog in geen frituur zou krijgen .
+50	4	0	de bediening is nonchalant en de keuken traag .
+51	4	0	als de zaak vol zit dan is er een probleem -wat zich vertaald in trage bediening en fouten .
+52	2	0	de salade nicoise is echt géén topper -gewoon wat tonijn uit blik met sla , zonder veel inspiratie .
+53	2	1	en nog heel lekker gegeten ook !
+54	2	1	we volgden de aanrader van de ober : de platte oesters zijn binnen en ze waren inderdaad heerlijk .
+55	2	1	lekker restaurant gekend voor zijn mooie malse stukken vlees ( entrecote , filet pur , steaks ) doch ook heel lekkere garnaalkroketjes , stoofvlees .
+56	2	1	kreeft op verschillende wijze te verkrijgen .
+57	2	1	zeer sappig en kruidig geserveerd .
+58	3	1	in het restaurant zelf : zeer veel prullaria die de sfeer in het restaurant ten goede komen .
+59	4	1	vriendelijke bediening !
+60	4	0	deze cateraar van oorsprong blijft beter bij zijn leest .
+61	2	0	slechts één menuutje om uit te kiezen , de full menu of de afgeslankte versie ( door het schrappen van een of meer gangen ) , aangevuld met enkele à la carte keuzes .
+62	2	0	de sterkte van een keuken kan in de eenvoud liggen , deze was echt wel heel eenvoudig voor zo'n 55 euro excl wijnen , hiervoor kan je in gent beter aan de dis : karel de stoute , house of elliott , grade e.a .
+63	4	0	de bediening door jonge obers kon bovendien professioneler .
+64	3	0	het interieur van dit restaurant zal wel 'uitgepuurd ' worden genoemd , het is kil , biedt slechts een matige 'hotelsfeer ' .
+65	3	0	hier laat het een koude indruk na , in combinatie met matige uitvoering van de gerechten ...
+66	4	0	we hadden s'ochtends gereserveerd en bij aankomst bleek het toch even uitkijken naar een tafeltje .
+67	3	0	tafel achteraan aan de keukenramen , intiem diner met twee , gestationeerd naast luidruchtige aalsterse groep ( niet echt ideaal ) .
+68	1	1	aperitief hugo , zeer lekker , mooi gepresenteerd .
+69	4	0	het laatste hebben we nooit gezien ...
+70	2	0	voorgerecht ( st jacobsvrucht ) vond ik niet overtuigend en niet koud genoeg om koud voorgerecht te zijn en iets te lauw om warm voorgerecht te zijn ...
+71	2	1	hoofdgerecht ( eend ) was ok van smaak ( saus was lekker ) maar aardappeltjes waren niet krokant gebakken en eend was taai .
+72	2	1	kaart is bijzonder door de grote hoeveelheid pizza 's .
+73	4	1	bediening is zeer vriendelijk .
+74	2	1	ik ben zowiezo een grote ijsjes fan , dus heb al op heel wat plaatsen ijsjes gehad , maar dit is echt het beste ijs wat ik al ooit gehad heb !
+75	2	1	mmmmmm ....
+76	2	1	nu woon ik in berlijn en elke keer als ik terug in belgië ben haast ik me naar leuven voor een bol écht ijs van decadenza .
+77	2	1	beste dat ik tot nu toe heb gehad !
+78	4	1	bediening voor belgische begrippen erg goed .
+79	2	1	brede keuze op de kaart met veel variatie .
+80	4	0	dat is op zich niet erg , maar de bediening was meer met elkaar bezig dan met de gasten .
+81	4	0	we moesten erg lang wachten alvorens er werd afgeruimd en opgenomen voor t dessert .
+82	3	0	de muziek die absoluut niet in een restaurant past , werd tijdens het diner ineens hard gezet .
+83	2	1	heerlijk gegeten voor een zeer schappelijke prijs .
+84	2	1	het hammetje in mosterdsaus is een overvloedig stuk mals vlees met een knapperige salade .
+85	2	1	de huisgemaakte chocolademousse als toetje kon er nog net bij .
+86	2	0	wij aten de tongreepjes aan 30€ , ze waren smaakloos en zeer klein ( 4 brokjes ) .
+87	1	0	ook de wijn , 14€ voor een kleine 1/2l , stelde niets voor .
+88	2	0	eten was een teleurstelling .
+89	2	0	vispannetje was bijvoorbeeld koud en helemaal niet vers .
+90	2	0	stoofvlees precies vanuit de frituur .
+91	2	0	frieten vanuit de diepvrieszakken ..
+92	2	0	geld zeker niet waard !
+93	2	1	zeer lekker getafeld .
+94	2	1	de chocolade mouse was verrukkelijk .
+95	2	1	het water komt me terug in de mond .
+96	2	1	wat je daar voorgeschoteld krijgt grenst aan het ongelooflijke !
+97	2	1	van de amuses tot aan de lekkernijen bij de koffie , alles is top !
+98	3	0	het enige minpuntje voor mij is het kille interieur , maar dat zal me zeker niet weerhouden om nog naar zeno te gaan .
+99	2	1	gisteravond heerlijk gegeten bij dit restaurantje !
+100	0	1	het ligt een beetje uit het centrum , waardoor het niet vol zit met toeristen .
+101	3	1	het restaurant is leuk ingericht .
+102	3	1	het lijkt alsof je jaren terug gaat in de tijd .
+103	3	1	leuke achtergrond muziek , overal dingetjes aan de wand en geweldige stoelen .
+104	4	1	we werden geholpen door een leuke en spontane vrouw !
+105	4	1	respect voor haar , in je eentje elf tafels lopen is nogal een opgave .
+106	4	1	geen moment is ze gehaast over gekomen en nam voor iedereen de tijd .
+107	2	1	we hebben de vlaamse stoofschotel gekozen en deze bleek geweldig .
+108	2	1	een zeer royale portie en heerlijke belgische friet !
+109	1	1	de goed geprijsde huiswijn , die aangeraden werd , paste er excellent bij .
+110	4	1	uiterst vriendelijke bediening .
+111	2	1	lekker gegeten .
+112	4	1	zeer attente en vriendelijke bediening .
+113	1	1	ook de wijn was een aanrader .
+114	2	1	de spareribs waren lekker !
+115	4	1	personeel is erg vriendelijk en goede bediening .
+116	2	1	nacho 's vooraf erg lekker ( en veel , kleine portie is makkelijk met 3 personen te eten ) .
+117	2	1	ook vlees is erg lekker .
+118	2	1	zalige gebakjes en het brood met rozijnen is perfect ! !
+119	2	1	het eten is er dus super .
+120	4	1	de bediening heel vlot !
+121	4	1	de gastdame was heel vriendelijk en spontaan !
+122	3	1	men zit gezellig tussen de boeken die mooi geordend staan .
+123	3	1	voor brugge is dit gezellig restaurant echt een meerwaarde !
+124	3	1	ik ontdekte deze plek toen het recent opende , werd verliefd op dit gezellige en sfeervolle etablissement , en ben het nog steeds .
+125	2	1	het eten is lekker , vers en je proeft dat het niet geforceerd is .
+126	3	1	de sfeer in books & brunch is zo heerlijk , kom je voor een lunch , een koffie of een thee .
+127	4	1	mevrouw die de zaak uitbaat verdient een vermelding voor de vriendelijkheid .
+128	2	0	alleen jammer dat het menu zo beperkt is qua eten , anders hadden we er ook een hapje gegeten .
+129	4	1	de bediening was heel vriendelijk en oprecht , en dat is toch echt een stuk aangenamer dan te chique en geforceerd .
+130	4	1	de hele avond is er ons ook uitdrukkelijk gevraagd of alles naar wens was , zonder dat de bediening teveel wordt opgedrongen .
+131	3	1	ook de sfeer zorgt voor ontspannen avond .
+132	2	1	wij hebben gekozen voor het vegetarisch viergangen menu , en die was het zeker waard !
+133	2	1	de amuse was een tapenade van olijven en was echt verassend lekker !
+134	4	1	ook hadden we dan al wat brood met olijfolie gekregen , dat binnen de 5 minuten .
+135	4	1	altijd leuk als je niet lang hoeft te wachten !
+136	2	1	de twee voorgerechtjes vielen ook in de smaak , maar vooral het voorgerechtje van coeur de boeuf is mij bijgebleven !
+137	2	1	deze werd geserveerd met meloen en is een zeer originele vegetarische variant op de klassieke spaanse ham met meloen .
+138	2	1	voor het hoofdgerecht , de veganistische lasagne , geldt opnieuw dat hier niet wordt uitgegaan van 'we laten het vlees gewoon weg ' .
+139	2	1	dit was echt een volwaardig gerecht , en afgewerkt met een pesto van basilicum , die lekker genoeg was om op zich te eten .
+140	2	1	als dessert dan de vegan chocolade mousse gekozen en hoewel deze inderdaad iets heel anders is dan wat je verwacht , daar waren we voordien vriendelijk voor gewaarschuwd , is het echt een aanrader !
+141	2	1	echt een pure chocoladesmaak , die super gaat in combinatie met de sinaasappelschijfjes die erbij worden geserveerd .
+142	1	0	cola 40cl €5,80 , voor de bruggeling €3 , gelukkig ......
+143	1	0	jupiler 25cl €4.00 witte wijn €7.00 koffie €2,50 dit kan nog min of meer door de beugel .
+144	3	1	een aangename plaats om eens een kleinigheid of uitgebreid te gaan eten ! !
+145	2	1	zeer lekker gegeten !
+146	2	1	op de kaart diverse italiaanse gerechten of verschillende soorten salades ook te verkrijgen ! !
+147	2	0	de soep van het dagmenu stond stijf van het zout .
+148	2	0	de vis was wel lekker , maar een roosje broccoli was alle groente .
+149	4	0	bij het afruimen werd er saus over mijn kleding geknoeid .
+150	4	0	geen fatsoenlijke excuses aangeboden of kleine compensatie .
+151	4	0	we gingen om er snel onze honger te stillen , maar we moesten lang wachten op 5 hamburger : 15-20 minuten .
+152	2	0	voor de rest viel het ons op dat niet de hele prijskaart ( zoals eurodeals ) ergens duidelijk stond .
+153	4	0	reeds meerdere keren merkte ik dat de zwartharige lesbische ober wisselgeld `` per ongeluk '' te weinig teruggeeft .
+154	2	1	menu aan een aantrekkelijke prijs .
+155	4	1	heel vriendelijke mensen .
+156	2	0	eten te duur voor wat op tafel kwam .
+157	4	0	het afrekenen duurde erg lang terwijl het niet druk was in de zaak .
+158	4	1	vriendelijk onthaal , druk op deze zaterdagavond .
+159	2	1	menu aan heel aanvaardbare prijs .
+160	2	1	garnaalkroketjes in huis gemaakt .
+161	2	0	halve kreeft wat minimaal van portie .
+162	2	1	goede keuze en grote porties .
+163	2	1	garnaalkroket waarbij je niet naar de garnalen moet zoeken .
+164	4	0	toen we de ober riepen , komt hij onze bestelling opnemen , maar toen bleek dat we nieuwe cliënten waren , annuleerde hij de opgenomen bestelling en zei hij ons datchij eerst zijn bestaande cliënten zal bedienen , voor hij ons zal bedienen .
+165	4	0	bij het aanroepen van een 2e ober , hadden we nog minder succes want deze kent de nederlandse taal niet en liep daar voor spek en bonen .
+166	4	0	na een kwartiertje gedulde te hebben gezien de drukte van de avond , en het merkelijk onderbemande personeel en al een 4 tal tafeltjes terug te zien vertrekken hebben , komt de ober onze overvolle tafel opruimen , waarbij wij een 3e poging doen om te bestellen , en de ober ons na 30min geduld te hebben gehad aanmaant om nog een 15 tal minuten te willen wachten .
+167	4	0	hij speelt liever het spelletje `` pest de keuken '' , waarbij hij eerst al zijn tafels wil afruimen , om dan in 5 minuten tijd de bestelling van eten en drinken te gaan opnemen van een 15-tal nieuwe tafels .
+168	4	0	tof voor de kok en ook tof voor zichzelf , zo gaat hij 15 gerechten tegelijk mogen opdienen , 15 tafels tegelijk voorzien van drank , en 15 tafels tegelijk terug mogen afruimen .
+169	4	0	ondanks de leeftijd van de ober , zou je de indruk moeten hebben dat hij al heel wat ervaring had , echter zo'n uithangbord zou ik niet willen hebben in mijn zaak .
+170	2	1	na een fietstocht in de westhoek lekker gegeten bij capella .
+171	0	1	een beetje weg van de drukte van de grote markt .
+172	4	1	op ons verzoek werd een tafel gedekt op het terras .
+173	2	1	een verrassend lekker hapje bij het aperitief en heerlijke salade met scampi .
+174	2	1	telkens opnieuw zijn we verrast door de uitzonderlijk verfijnde keuken .
+175	3	0	enig minpuntje , soms luidruchtig als er grote gezelschappen aan een tafel zitten .
+176	2	0	voor minder dan 20€ krijg je ze niet .
+177	4	0	we werden binnengeleid door een man die ons nogal bazig en bars met het vingertje gebood om in het gevulde deel van het resto plaats te nemen .
+178	4	0	die man beviel me echt niet .
+179	1	0	ik opteerde voor een spaghetti en een karafje wijn die zuur smaakte .
+180	2	0	ik weet niet wat ik gegeten heb maar het leek me niet koosjer .
+181	4	0	toen ik de eigenares erop attent maakte dat dit zeer louche praktijken zijn , maakte ze een scene en weigerde ze om me wisselgeld te geven .
+182	2	0	dit was mijn grootste tegenvaller ooit op gebied van take-away .
+183	2	0	het pizzadeeg was goed , maar de topping en zeker de prijs was een tegenvaller .
+184	2	0	de pizza was zeer slecht gevuld en de smaak was zeer flauw .
+185	2	0	ook diende ik de prijzen te betalen van het restaurant terwijl afhaalpizza goedkoper was in de folder .
+186	1	0	een half en half is slechts 1/3de tripel aangevuld met trappist uit het vat .
+187	2	0	over de smaak van het eten kan ik weinig zeggen , maar de borrelhapjes zijn nogal duur in verhouding .
+188	4	1	we werden hartelijk onthaald en de hele avond zéér vriendelijk bediend .
+189	2	1	we kozen na de soep met z'n vieren voor het zwijnshaasje : sappig en met allerlei lekkere groentjes .
+190	2	1	eén iemand koos een vegetarische schotel en ook zij was heel enthousiast .
+191	2	1	het dessert was de kers op de taart .
+192	4	1	het behalen van een michelinster is lieven en iris niet naar het hoofd gestegen .
+193	4	1	ondanks we niet reserveerden kregen we op een drukke avond toch een tafeltje .
+194	2	0	misschien opteren om iets minder lompe frieten te serveren ( zonder meerprijs : - ) )
+195	2	1	het was allemaal vers en zeker voldoende .
+196	4	1	de bediening was zeer vriendelijk .
+197	4	0	bij binnenkomst niet heel vriendelijke ontvangen .
+198	3	0	het was vrij druk .
+199	4	0	eigenaar ging ongelofelijk tekeer tegen zijn personeel .
+200	2	1	de chef heeft duidelijk een gulden middenweg gevonden om de niet alleen mooie presentaties voor te schotelen , maar om ook de smaken uitstekend te doceren .
+201	2	1	werkelijk zeer verfijnd in alle opzichten .
+202	3	1	het interieur is mooi en rustig .
+203	4	1	zeer professionele gast vrouw en goede bediening , hoewel eenmaal het principe , first-in , first-served niet toegepast werd waarschijnlijk door de drukte .
+204	2	1	hier hebben we heel lekker gegeten .
+205	3	1	restaurant met open keuken en rustig kader .
+206	4	0	dan bleef hij roepen !
+207	4	0	man komt buiten , ik zeg braaf kom de kindere hebben honger , eet maar gewoon , komt ene buitegevloge , nu betale !
+208	4	0	nu betale ! !
+209	4	0	die begint met stoele te gooie ! ! ! ! ! ! !
+210	4	0	man betaald en garcon pakt alle ete weg ! ! ! ! !
+211	4	0	baas met baseballknuppel langs mij ! ! ! ! ! ! ! ! ! !
+212	2	1	het eten was super , kon niet beter !
+213	4	0	misschien 1 minpuntje de dame vroeg enkel aan mij of ik een koffie wou ( alhoewel wij met 4 waren-zonder aan de andere tafelgenoten ook die vraag te stellen , ze was ook wat vlug weg ) dus iedereen kreeg koffie .
+214	4	0	het personeel moet zich wel nog wat rustiger gedragen .
+215	3	1	mooi gezellig restaurant .
+216	2	1	eten was perfect , niets op aan te merken .
+217	4	1	heel vriendelijke service .
+218	2	1	de frietjes zijn handgesneden .
+219	2	1	bij het aperitief kwamen een hele reeks prachtige en lekkere hapjes .
+220	2	1	het menu zelf was van hetzelfde niveau , zonder één minpuntje .
+221	2	1	verrassende smaakcombinaties prachtig gepresenteerd op het perfecte bord !
+222	4	1	ons gezelschap heeft mogen kennismaken met de verrassende kunstjes van de robot gastvrouw , nooit eerder gezien !
+223	4	0	we zaten er vanaf 19.30 en om 22h komen ze zeggen dat ze uw bestelling vergeten is .
+224	4	0	het meisje was altijd aan het 3xcuses a h geven .
+225	4	0	tip aan de uitbater : opleiding geven aan personeel ( zowel keuken als zaal ) indien u de zaak open wenst te houden .
+226	4	0	wij kwamen toe en hebben eerst een vijftal minuten moeten wachten tot er überhaupt iets van personeel in de zaal rondliep .
+227	3	0	dit vonden wij al vrij onaangenaam .
+228	4	0	dan mochten we nog eens een kwartier wachten tot er ( franstalige ... ) kaarten werden gebracht .
+229	4	0	dan nog eens 20 minuten vooraleer het personeel gedaan had met praten en tijd had om onze bestelling op te nemen .
+230	4	0	de cocktail hebben wij gekregen toen wij bijna klaar waren met eten ( en wij zijn heus geen snelle eters ) .
+231	2	0	het buffet was zielig .
+232	2	0	bijna alles was op , en wat overbleef was uitgedroogd , aangebakken , ofwel al koud .
+233	2	0	dit kon niet want alles was op .
+234	2	0	en wij hadden de eerste keer al niet veel kunnen nemen omdat er al niet veel was .
+235	4	0	mijn vriend is meerdere keren in het nederlands gaan vragen wanneer het ging bijgevuld worden , om dan maar te horen te krijgen dat het personeel geen nederlands verstaat ..
+236	4	0	wij waren het wachten na meer dan een halfuur beu en wij zijn met razende honger vertrokken .
+237	2	0	bovendien zijn wij allebei nog 3 dagen ziek geweest doordat het voedsel overduidelijk niet op een hygiënische temperatuur wordt gehouden in het buffet .
+238	4	0	verder ook zeer ontevreden over het personeel .
+239	4	0	er was een meisje dat onze tafel expres oversloeg ( en soms gewoon stond te nietsen ) omdat zij geen nederlands wou praten .
+240	4	0	en dit terwijl er overal nog vuile borden stonden en wij al zeer lang aan het wachten waren .
+241	4	1	de gastvrouw is supervriendelijk .
+242	4	0	nadat we zelf de menukaarten hadden gevonden hebben we om half zeven maar eens gevraagd of we konden bestellen .
+243	4	0	tien minuten later nog maar eens gevraagd .
+244	4	0	op het hoofdgerecht hebben dan nog drie kwartier kunnen wachten na meermaals navragen .
+245	2	0	kleine porties , half rauw vlees , kortom : waardeloos .
+246	2	0	de salade verlept , de frieten uit de diepvries .
+247	4	0	de bediening is onvriendelijk , begint altijd met de gasten te discussiëren .
+248	1	0	mijn tweede leefe uit het vatkwam in een flesje !
+249	2	0	het bladerdeegbakje van het koninginnenhapje was top de rest was niet om over naar huis te schrijven prefab gehakballetjes , weinig saus , geen champignon te bespeuren , een beetje kip de frieten waren beneden alle peil , smakeloos karton er zijn voldoende andere mogelijkheden in de buurt , zeker als je met een klein gezelschap bent ook voor grotere gezelschappen moet er binnen maaseik een beter alternatief zijn .

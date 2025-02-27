@@ -1,0 +1,132 @@
+0	3	1	great battery life .
+1	2	1	the screen is great , i do n't see the need for a retina display .
+2	4	1	i tried not to jump on the apple bandwagon , but ... you 're just living in denial if you do n't .
+3	4	1	happy buying !
+4	4	0	etc . but the company and seller lied to you and try to make an extra buck !
+5	4	0	thank you asus . ( they do n't deserve to be capitalized )
+6	3	1	good battery life .
+7	2	1	great color on screen .
+8	5	0	the touchpad is a little & quot ; clunky & quot ; for my taste ; i use a small external mouse with laptops in any event .
+9	5	0	i also found the track pad irritating until i disabled & quot ; pinch zoom. & quot ;
+10	3	1	battery life is great - though it is new .
+11	0	0	each time , apple can only uninstall to original factory settings for me to start over .
+12	3	1	even the battery life is like wow !
+13	1	1	upgrading from a toshiba laptop , i am fully impressed with all of the benefits that the mac operating system provides .
+14	0	1	they were great .
+15	1	1	i enjoy the simplicity and user-friendly interface of yosemite .
+16	1	1	i 'm excited for el capitan .
+17	6	1	the apps are very easy to use .
+18	2	1	the resolution is excellent .
+19	2	1	- it 's not touchscreen !
+20	7	1	- its keyboard is nicely arranged , silent , and back-lit which is nice , but what i do n't like about it is the material attracts oil from your fingers .
+21	7	0	i have to clean it regularly for it to stay looking good .
+22	2	1	- the screen is a matte 1080p display , which is nice , but with poor viewing angle .
+23	2	0	i find myself adjusting it regularly .
+24	7	0	the space bar sticks .
+25	1	1	the os is easy , and offers all kinds of surprises .
+26	6	1	if you want to use the internet , then you can make your icons jump out from the bottom of the screen , like a magnifying glass is projecting onto the selected icon .
+27	2	1	- touchscreen is great .
+28	2	1	the screen has an extremely high resolution that i 'm very pleased with .
+29	3	0	my daughter 's macbook air battery bulged deforming the keyboard several days ago .
+30	0	0	it took 3 days to make an appointment at the local apple store .
+31	0	0	i 'm not sure what happened next but she came back home crying with a piece of paper in her hand $ 129 for a new battery , $ 39 to replace it and $ 139 for a new keyboard .
+32	0	0	i could not believe they did not consider the battery as defective so i went to the apple store myself and asked for a manager .
+33	0	0	he explained to me the battery expansion is 'normal ' .
+34	0	0	apple does n't cover battery expansion under any circumstances not even under their apple care .
+35	0	0	the battery is simply considered 'consumable ' and not covered .
+36	0	0	i asked the manager if he feels comfortable with me posting the picture of the macbook air on the internet with the description that apple does n't consider the product defective .
+37	0	0	his reply astonished me , looking down at me behind his thick glasses he said : 'make sure you have your facts straight before you smear !
+38	0	0	he did n't specify who are 'they ' but from the tone of his voice and his 6 ' 5 ' posture it indicated something between the swat team and a bunch of lawyers .
+39	4	0	here is my take on all of this , the business model apple pushes right now is to get some cheap junk from china , hire a bunch of cheerleaders straight out of high school , call them geniuses , and bully everybody who complains about their product .
+40	4	0	steve jobs is dead , so is apple .
+41	4	0	no more apple devices in my household .
+42	4	1	that 's a pretty impressive track record do n't you think ?
+43	7	1	i find it much easier to type on and much more durable .
+44	3	1	battery life- my battery life is really good with this laptop and i have had no problems with it thus far .
+45	3	1	i can usually go about 10 hours before i get down to 10 % battery life .
+46	7	1	2. keyboard is great
+47	2	1	i wanted a simple full hd display and this one does its job
+48	2	0	2. viewing angles are not great .
+49	5	0	5. i found the track pad not great .
+50	7	0	it flickers briefly to green before the light goes out .
+51	7	0	i do n't want to carry around a bluetooth keyboard for a computer whose keyboard is nonfunctional .
+52	4	0	but sony does n't seem to have addressed it .
+53	5	0	either way , highly annoying .
+54	7	1	the backlit keyboard is a nice touch especially .
+55	2	1	the screen looked fine to me and was n't an issue like others have been saying .
+56	7	1	the keys on the keyboard are evenly spaced and are back-lit , which make it easy to use at night and for speed writing ( typing ? ) .
+57	2	1	overall , the screen resolution , though non-retina , is sufficient for normal web browsing and work .
+58	5	1	the glass track pad is large enough for apple 's highly acclaimed multi-touch gestures for scrolling through web pages with two fingers , zooming in on certain parts of certain apps by double tapping with two fingers , accessing launchpad by pinching with five fingers and using mission control by swiping up with four fingers .
+59	5	1	for windows users switching to a mac , you can also enable right clicking ( known to apple as secondary click ) in the system preferences & gt ; mouse and enabling right clicking .
+60	6	1	the mac app store and itunes store are phenomenal .
+61	6	1	the mac app store is your one-stop shop for mac software , though you can also download software online at your own risk .
+62	6	1	there are currently around 10,000 apps on the app store ( and counting ... ) , and billions of songs available for download fro the itunes store .
+63	6	1	itunes is one of the better media players available on the market with it 's simple to use user interface .
+64	2	0	glare is also pretty frustrating .
+65	7	0	my laptop 's one of the key from keyboard came out and it was mechanical failure .
+66	0	0	my laptop was under coverage but when i gave it to them for repairs , they quoted me $ 755 for it .
+67	4	0	this company just wants customers ' money in their pocket .
+68	4	0	they dont care how you feel when they charge you hundreds of hard earned dollars .
+69	4	0	i wish this company to go bust .
+70	4	0	i will never ever buy any apple product in my life .
+71	7	0	also , and this maybe is another personal quirk , but the keyboard sits a little far back for my taste so my watch scrapes against the edge of the laptop .
+72	0	1	if i were to have any technical difficulties , the local apple and contact line were able to help me asap , it was quite impressive .
+73	1	1	i was pretty skeptical about upgrading to windows 10 , but it is pretty awesome .
+74	1	1	mac user interface is just the best .
+75	4	0	not impressed with macintosh products .
+76	4	0	in fact i am completely frustrated .
+77	1	0	also , many software programs are not compatible with the ios platform .
+78	3	1	the battery life has increased from the last version from 4 hours to 7 hours , making it easy for college students to study for extended periods of time without needing a charger .
+79	3	1	o it has an extended battery life .
+80	1	1	cons : o some people do n't enjoy the way the processing system runs , but do n't have any issues with getting it to function .
+81	2	0	screen is too small to read and almost impossible to touch with a normal adult finger .
+82	2	0	the brightest screen setting appeared dim in normal room light .
+83	7	0	keyboard is flimsy and mediocre at best .
+84	5	0	the touch pad feel is a 4 on scale 1 - 10 .
+85	5	0	this one does n't do that .
+86	5	0	the trackpad is pretty crappy - but are n't they all ?
+87	1	1	ios does everything its billed to do and much , much more .
+88	1	1	literally every detail has been thought out and designed with the user in mind .
+89	1	1	i ca n't believe how much time it saves me through automatic processes .
+90	3	1	the batter lasts as long as claimed .
+91	3	1	i get about 5 or so hours playing the sims .
+92	3	1	i have n't really officially tested it yet , but it 's a long time .
+93	3	1	i hate plugging my laptop in because i do n't want to leave it on too long and hurt the battery , but with this laptop i rarely have to charge it .
+94	2	1	the touchscreen is responsive and even works with my crappy dollar stylus .
+95	1	0	the only problem i have is with windows 8 .
+96	1	0	i hate windows 8 .
+97	1	0	it made me sign up with microsoft and sometimes wo n't let me download things that are harmful to my computer , but that 's what anti virus software is for lol .
+98	2	0	i can hear the noise of the computer turning on and the lights also turn on but the screen in completely dead .
+99	0	1	and apple was happy to install the latest osx for free !
+100	0	0	the online customer service was awful .
+101	0	0	gave me the runaround for an entire day and treated me like an imbecile .
+102	0	0	no one would ever answer my question as to why i could n't get another new macbook since this was clearly a factory error and my macbook was still under warranty .
+103	0	0	as a matter of fact , no matter how many times i asked that question , the employees i spoke purposely ignored it .
+104	0	0	they did n't say yes and they did n't say no , they just pretended that i never asked it , which was incredibly frustrating .
+105	0	1	i 've been to the & amp ; # 34 ; genius & amp ; # 34 ; bar several times ( they have been very nice ) .
+106	6	1	i did buy office 2008 for the mac at a very low price to migrate most of my work files for $ 64 and that was a steal in my opinion .
+107	4	1	but apple does not pretend it has any of these .
+108	4	0	so , i 'm cooled on mac buys .
+109	0	0	they did not replace the motherboard .
+110	0	0	instead they 'tightened ' a loose wire .
+111	0	0	it also has a big new scratch on the top cover .
+112	0	0	i started it up and it still has the same problem i went in to fix .
+113	0	0	so i 'm going back to genius bar for visit # 6 .
+114	1	0	mac is complicated and frustrating at moments .
+115	1	0	i watched tutorials and that helped somewhat but not enough .
+116	5	0	when i first got the computer , i noticed the tracking pad was hard to click .
+117	3	0	i took my macbook to the apple store and they had to replace the battery after 1 month of use since it was swelling .
+118	0	0	they tried to tell me that the battery was n't covered by the warranty and it costs about $ 150 to replace .
+119	1	0	the free upgrade to mountain lion failed .
+120	2	0	it tried to boot up and the screen just flashed over and over and over again .
+121	0	0	hp was no help .
+122	7	0	the lettering wore off the keys , so you better be able to type blind .
+123	3	0	the battery lasted 12 months , then pffft ..... gone .
+124	4	0	then there was a power cord recall .... hp never notified us ..... and we did register ...... never again .
+125	1	1	i can tweet and use facebook from the sidebar which is really nice .
+126	1	1	i also like i have the option to push calendars , photos , and contacts to an ipad , ipod touch , or iphone ( if i had any of those ) .
+127	6	0	the only thing i have had trouble with so far is transferring music to itunes which i would have liked to do though & amp ; # 34 ; home sharing & amp ; # 34 ; ( i used itunes on a computer separate from my linux computer ) but i could not figure that out .
+128	6	0	i just ended up using my ipod to transfer my itunes music and i re-downloaded my amazon music ( losing my ratings ) .
+129	5	0	to go left i have to go right and vice versa and to go up i have to go down .
+130	5	0	when i attach a mouse it 's fine but the touchpad is really annoying .
+131	5	0	i went through the settings and there is n't a way to fix it .
